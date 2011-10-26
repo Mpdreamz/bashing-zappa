@@ -1,70 +1,25 @@
 require("zappa") '192.168.1.13', 80, ->
 	@use 'bodyParser', @app.router
+	
+	@redis = require("redis")
+	@redis_client = @redis.createClient()
+
+	@helper redis_client: ->
+		redis = require("redis")
+		redis.createClient()
+
 	@get "/" : ->
-		@render index: { foo: "bar" }
-
-	@get "/host/:name" : ->
-		@render gamehost: { name: @params.name }
-	
-	@client "/host/js/socket.js" : ->
-		@on connect: ->
-			@emit host: { name: GameHost.name, host: true }
-		@on host_created: ->
-			console.log "host_created: " + @data.name
-		@on client_message: ->
-			alert @data.text
-		@connect();
-	
-	@on host: ->
-		@socket.set("host", @data.name, => console.log "room #{@data.room} saved")
-		@socket.join(@data.name)
-		@socket.join(@data.name + ".host") if @data.host
-		@emit host_created: { name: @data.name } if @data.host
-		@emit host_joined: { name: @data.name } if not @data.host
-	
-	@on client_send: ->
-		@socket.get "host", (err, host) =>
-			console.log "got " + host
-			@io.sockets.in(host+ ".host").emit "client_message", { text: @data.text + "<- on host"}
-			@io.sockets.in(host).emit "client_message", { text: @data.text }
-			# @socket.broadcast.to(host).emit "client_message", { text: @data.text }
-			
-			
-
-	@post "/game/create" : ->
-		@redirect "/host/" + @body.room
-
-	@view gamehost: ->
-		@scripts = ["/host/js/socket.js"]
-		@client_state = "window.GameHost = { name: \"#{@name}\"}"
-		@title = "Bashing.Zappa host:" + @name
-		h1 @host
-
-	@get "/play/:name" : ->
-		@render gameplay: { name: @params.name }
-
-	@client "/play/js/socket.js" : ->
-		@on connect: ->
-			@emit host: { name: GameHost.name }
-		@on host_joined: ->
-			console.log "host_created: " + @data.name
-		@on client_message: ->
-			alert @data.text
-		@connect();
-		$ =>
-			$("#sub").bind("click action", => @emit client_send: { text: $("#text").val() } )
+		@redis_client().zrange "bashing::hosts", 0, -1, (err, hosts) =>
+			console.log hosts
+			@render index: { foo: "bar", hosts: hosts }
 		
+	
+	@include "./host/host.coffee"
 
-	@view gameplay: ->
-		@scripts = ["/play/js/socket.js"]
-		@client_state = "window.GameHost = { name: \"#{@name}\"}"
-		@title = "Bashing.Zappa player"
-		h1 @host
-		h2 "emit"
-		label "Room name"
-		input type: "text", id: "text", name: "room"
-		input type: "submit", id: "sub"
+	@include "./player/player.coffee"
 
+	@include "./server.io.coffee"
+			
 	@view index: ->
 		@title = "Socket.IO zappa tests"
 		h1 @title
@@ -74,6 +29,9 @@ require("zappa") '192.168.1.13', 80, ->
 			label "Room name"
 			input type: "text", id: "room", name: "room"
 			input type: "submit"
+		ul ->
+			for host in @hosts
+				li host
 	
 	@view layout: ->
 		doctype 5
