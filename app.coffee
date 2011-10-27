@@ -1,4 +1,4 @@
-require("zappa") '192.168.1.13', 80, ->
+require("zappa") 'localhost', 8080, ->
 	@use 'bodyParser', @app.router
 	
 	@redis = require("redis")
