@@ -1,6 +1,7 @@
 # install 
+Installeer Node.js 4.12 (stabile version)
+
 ```
-install nvm
 install npm
 cd [Project dir]
 npm install zappa 
