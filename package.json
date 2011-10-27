@@ -1,0 +1,10 @@
+{
+	"name": "bashing-zappa",
+	"version": "0.0.1",
+	"description": "A w00tcamp game",
+	"author": "Christiaan Hees <mail@chees.info>",
+	"dependencies": {
+		"zappa": "0.3.x",
+		"redis": "0.6.x"
+	}
+}
