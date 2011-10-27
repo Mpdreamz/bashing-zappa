@@ -1,5 +1,5 @@
 require("zappa") 'localhost', 8080, ->
-	@use 'bodyParser', @app.router
+	@use 'bodyParser', @app.router, static: __dirname + '/static'
 	
 	@redis = require("redis")
 	@redis_client = @redis.createClient()
