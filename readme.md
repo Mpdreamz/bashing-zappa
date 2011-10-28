@@ -1,16 +1,19 @@
 # install 
-* Installeer Node 4.12 (stabile version)
-* Installeer npm
-
 ```
-cd [Project dir]
-npm install
+sudo apt-get install python-software-properties
+sudo add-apt-repository ppa:chris-lea/node.js
+sudo apt-get update
+sudo apt-get install nodejs
+
+curl http://npmjs.org/install.sh | sudo sh
+
 sudo apt-get install redis-server
+
+npm install
 ```
 
 #run
 ```
-cd [project dir]
 npm start
 ```
 
