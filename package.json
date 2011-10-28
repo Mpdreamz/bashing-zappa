@@ -2,9 +2,22 @@
 	"name": "bashing-zappa",
 	"version": "0.0.1",
 	"description": "A w00tcamp game",
-	"author": "Christiaan Hees <mail@chees.info>",
+	"contributors": [
+		{ "name": "Christiaan Hees" },
+		{ "name": "Martijn Laarman" },
+		{ "name": "Arian van Gend" }
+	],
 	"dependencies": {
 		"zappa": "0.3.x",
-		"redis": "0.6.x"
+		"redis": "0.6.x",
+		"coffee-script": "1.1.x"
+	},
+	"scripts": {
+		"start": "coffee app.coffee"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Mpdreamz/bashing-zappa"
 	}
 }
+
