@@ -1,16 +1,16 @@
 # install 
-Installeer Node.js 4.12 (stabile version)
+* Installeer Node 4.12 (stabile version)
+* Installeer npm
 
 ```
-install npm
 cd [Project dir]
-npm install zappa 
-npm install redis
-sudo apt-get redis-server
+npm install
+sudo apt-get install redis-server
 ```
 
 #run
 ```
 cd [project dir]
-coffee app.coffee
+npm start
 ```
+
