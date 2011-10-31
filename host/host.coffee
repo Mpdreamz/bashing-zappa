@@ -1,5 +1,7 @@
 @include = ->
 	
+	@include "host/host.io.coffee"
+
 	@get "/host/:name" : ->
 		@render gamehost: { name: @params.name }
 	
