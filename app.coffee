@@ -26,7 +26,8 @@ require("zappa") 'localhost', 8080, ->
 	@get "/" : ->
 		@redis_client().zrange "bashing::hosts", 0, -1, (err, hosts) =>
 			console.log hosts
-			@render "/shared/index.html", { foo: "bar", hosts: hosts }
+			#@render "/shared/index.html", { title: "Tieteltje", hosts: hosts }
+			@render '/shared/index.html', { title: 'Tieteltje', stylesheets: [], scripts: [] }
 			
 	@view index: ->
 		@title = "Socket.IO zappa tests"

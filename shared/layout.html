@@ -1,2 +1,21 @@
-<h1>Hello Layout<h1>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title><%= title %></title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+	<% for(var i=0; i<stylesheets.length; i++) { %>
+			<link rel="stylesheet" href="<%= stylesheets[i] %>" />
+	<% } %>
+</head>
+<body>
 <%= body %>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/zappa/zappa.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<% for(var i=0; false && i<scripts.length; i++) {%>
+	<script src="<%= scripts[i] %>"></script>
+<% } %>
+</body>
+</html>
+
