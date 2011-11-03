@@ -6,7 +6,10 @@
 		@render gamehost: { name: @params.name }
 	
 	@post "/game/create" : ->
-		@redirect "/host/" + @body.room
+		@redirect "/host/" + @body.name
+	
+	@post "/game/play" : ->
+		@redirect "/play/" + @body.name
 
 	@client "/host/js/socket.js" : ->
 		@on connect: ->

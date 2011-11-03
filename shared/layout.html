@@ -1,2 +1,18 @@
-<h1>Hello Layout<h1>
-<%= body %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bashing: <%= title %></title>
+    <link rel="stylesheet" media="all" href="/css/layout.css">
+  </head>
+  <body>
+  	<div id="site">
+  	<header>
+		<h1>Bashing w00tcamp 2011</h1>
+	</header>
+	<article>
+		<%- body %>
+	</article>
+	<footer>
+	</footer>
+  </body>
+</html>

@@ -26,21 +26,11 @@ require("zappa") 'localhost', 8080, ->
 	@get "/" : ->
 		@redis_client().zrange "bashing::hosts", 0, -1, (err, hosts) =>
 			console.log hosts
-			@render "/shared/index.html", { foo: "bar", hosts: hosts }
+			@render "/shared/index.html", 
+				foo: "bar", 
+				hosts: hosts
+				title: "Index!"
 			
-	@view index: ->
-		@title = "Socket.IO zappa tests"
-		h1 @title
-		p @foo
-		form action:"/game/create", method: "POST", ->
-			h2 "Host a game"
-			label "Room name"
-			input type: "text", id: "room", name: "room"
-			input type: "submit"
-		ul ->
-			for host in @hosts
-				li host
-	
 	@view layout: ->
 		doctype 5
 		html -> 

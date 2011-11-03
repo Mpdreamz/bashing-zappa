@@ -1,1 +1,23 @@
-<p>Hello world</p>
+<section id="host_game">
+	<form action="/game/create" method="post">
+		<h2>Host a new game</h2>
+		<label>Name</label>
+		<input type="text" name="name" />
+		<input type="submit" value="Create!" />
+	</form>
+</section>
+<section id="join_game">
+	<form action="/game/join" method="post">
+		<h2>Join a game</h2>
+		<label>Name</label>
+		<input type="text" name="name" />
+		<input type="submit" value="Join!" />
+	</form>
+</section>
+<section id="game_list">
+	<h2>50 Most active games</h2>
+   <% for(var h in hosts) { %>
+   	<a href="/play/<%= hosts[h] %>" target="_blank"><%= hosts[h] %></a>
+
+   <% } %>
+</section>

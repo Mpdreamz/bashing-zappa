@@ -1,0 +1,38 @@
+* {
+	margin:0;
+	padding:0;
+}
+body {
+	font-family: "sans-serif";
+	background: url('/img/background-site.jpg') repeat-x top left;
+}
+h2 { 
+	margin-bottom:10px;
+}
+div#site {
+	width:600px;
+	margin:auto;
+}
+section#host_game
+, section#join_game
+, section#game_list {
+	margin-top:40px;
+	 -webkit-border-radius:5px;  
+    -moz-border-radius:5px;  
+    border-radius:5px;
+    padding:10px;
+	border:1px solid #cccccc;  
+	background:white;
+}
+header {
+	margin-top:40px;
+	padding:10px;
+	color:rgb(0, 132,209);
+}
+input {
+	 -webkit-border-radius:5px;  
+    -moz-border-radius:5px;  
+    border-radius:5px;
+    padding:4px;
+	border:1px solid #cccccc; 
+}
