@@ -9,7 +9,7 @@
 	@on client_send: ->
 		@socket.get "host", (err, host) =>
 			console.log "got " + host
-			@io.sockets.in(host+ ".host").emit "client_message", { text: @data.text + "<- on host"}
+			@io.sockets.in(host + ".host").emit "client_message", { text: @data.text + "<- on host"}
 			@io.sockets.in(host).emit "client_message", { text: @data.text }
 			# @socket.broadcast.to(host).emit "client_message", { text: @data.text }
 
