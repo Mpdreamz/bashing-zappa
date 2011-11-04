@@ -18,13 +18,13 @@ function init() {
   
 
         var bgImage = new Image();
-        bgImage.src = "../img/background.png";
+        bgImage.src = "/img/background.png";
         
         var engineImage = new Image();
-        engineImage.src = "../img/test_unit01.png";
+        engineImage.src = "/img/test_unit01.png";
 
         var wbImage = new Image();
-        wbImage.src = "../img/wreck_ball_64x64.png";
+        wbImage.src = "/img/wreck_ball_64x64.png";
 
       
          var   b2Vec2 = Box2D.Common.Math.b2Vec2
@@ -94,7 +94,6 @@ function init() {
           bodyDef.angularDamping = 1;
           players['player' + i] = {
             body: world.CreateBody(bodyDef),
-            direction: b2Vec2(0, 1),
             force: new b2Vec2(0, 0),
             oldForce: new b2Vec2(0, 0)
           };

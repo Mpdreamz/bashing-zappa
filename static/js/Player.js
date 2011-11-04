@@ -5,9 +5,8 @@ function Player(engine, id) {
 	this.y = 100;
 	this.angle = 2;
 	this.radius = 10;
-	this.r = Math.floor(Math.random()*256);
-	this.g = Math.floor(Math.random()*256);
-	this.b = Math.floor(Math.random()*256);
+	//this.force = new b2Vec2(0, 0);
+	//this.oldForce = new b2Vec(0, 0);
 	this.isDead = false;
 	this.ballImg = new Image();
 	this.ballImg.src = '/img/wreck_ball_64x64.png';
@@ -33,11 +32,6 @@ Player.prototype.update = function(state) {
 };
 
 Player.prototype.draw = function(ctx) {
-	//ctx.beginPath();
-	//ctx.fillStyle = 'rgb('+this.r+','+this.g+','+this.b+')';
-	//ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);
-	//ctx.fill();
-	
 	ctx.beginPath();
 	ctx.moveTo(this.x, this.y);
 	ctx.lineTo(this.x, this.y + 40);
