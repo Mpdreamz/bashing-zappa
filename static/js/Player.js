@@ -4,7 +4,7 @@ function Player(engine, id) {
 	this.x = 100;
 	this.y = 100;
 	this.angle = 2;
-	this.radius = 10;
+	this.radius = 30;
 	this.force = new b2Vec2(0, 0);
 	//this.oldForce = new b2Vec(0, 0);
 	this.isDead = false;
@@ -28,18 +28,18 @@ Player.prototype.update = function(state) {
 	this.y = state.y;
 	this.angle = state.angle;
 	
-	this.body.ApplyImpulse(new b2Vec2(this.force.x * 20, this.force.y * 20), this.body.GetPosition());
+	this.body.ApplyImpulse(new b2Vec2(this.force.x * 1000, this.force.y * 1000), this.body.GetPosition());
 	
 	Entity.prototype.update.call(this);
 };
 
 Player.prototype.draw = function(ctx) {
-/*
 	ctx.beginPath();
 	ctx.moveTo(this.x, this.y);
-	ctx.lineTo(this.x, this.y + 40);
+	ctx.lineTo(this.x + this.force.x, this.y + this.force.y);
 	ctx.stroke();
 	
+	/*
 	ctx.drawImage(this.ballImg, this.x - 32, this.y - 32);
 	ctx.drawImage(this.engineImg, this.x - 13, this.y + 40);
 */
