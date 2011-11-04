@@ -34,6 +34,7 @@ Player.prototype.update = function(state) {
 };
 
 Player.prototype.draw = function(ctx) {
+/*
 	ctx.beginPath();
 	ctx.moveTo(this.x, this.y);
 	ctx.lineTo(this.x, this.y + 40);
@@ -41,6 +42,24 @@ Player.prototype.draw = function(ctx) {
 	
 	ctx.drawImage(this.ballImg, this.x - 32, this.y - 32);
 	ctx.drawImage(this.engineImg, this.x - 13, this.y + 40);
-	
-	Entity.prototype.draw.call(this, ctx);
+*/
+	ctx.save();
+	ctx.translate(this.x , this.y);
+
+	ctx.drawImage(this.ballImg, - (this.ballImg.width /2), - (this.ballImg.height /2) , this.ballImg.width, this.ballImg.height);
+
+	ctx.translate(this.force.x * 1.2, this.force.y * 1.2);
+
+//	if (f.y == 0 && f.x == 0) {
+	//	ctx.rotate(Math.atan2(oldForce.y, oldForce.x));
+//	} else {
+		ctx.rotate(Math.atan2(this.force.y, this.force.x));
+	//}
+
+	ctx.drawImage(this.engineImg, - (this.engineImg.width /2), - (this.engineImg.height /2) , this.engineImg.width, this.engineImg.height);
+
+	ctx.restore();
 };
+
+
+

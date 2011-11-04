@@ -22,16 +22,6 @@ Game.prototype.addPlayer = function(player) {
 	this.physics.addBody(player);
 };
 
-Game.prototype.movePlayer = function(id, dir) {
-	var entitiesCount = this.entities.length;
-	for (var i = 0; i < entitiesCount; i++) {
-		var player = this.entities[i];
-		if (player.id == id) {
-			player.requestedDir = dir;
-		}
-	}
-};
-
 Game.prototype.handleInput = function(event, data) {
 	switch(event) {
 		case 'join':
