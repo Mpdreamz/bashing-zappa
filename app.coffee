@@ -33,17 +33,11 @@ require("zappa") 'localhost', 8080, ->
 			
 	@view layout: ->
 		doctype 5
-		html -> 
-			head -> 
+		html ->
+			head ->
+				meta charset: 'utf-8'
 				title @title
-				script src: '/socket.io/socket.io.js'
-				script src: '/zappa/zappa.js'
-				script src: "http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"
-				script(type: "text/javascript", @client_state) if @client_state		
-				if @scripts
-					for s in @scripts
-						script src: s
-				script(src: @script) if @script
+				meta name: 'viewport', content: 'width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'
 				if @stylesheets
 					for s in @stylesheets
 						link rel: 'stylesheet', href: s
@@ -51,6 +45,11 @@ require("zappa") 'localhost', 8080, ->
 					link(rel: 'stylesheet', href: @stylesheet)
 				style @style if @style
 			body @body
-
-
-
+			script src: '/socket.io/socket.io.js'
+			script src: '/zappa/zappa.js'
+			script src: "http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"
+			script(type: "text/javascript", @client_state) if @client_state		
+			if @scripts
+				for s in @scripts
+					script src: s
+			script(src: @script) if @script
