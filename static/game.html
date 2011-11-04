@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<link type="text/css" rel="stylesheet" href="css/view.css">
+</head>
+<body>
+
+<canvas id="canvas"></canvas>
+
+<div id="play">Play ? &nbsp;&nbsp; Scan →</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script src="js/util.js"></script>
+<script src="js/Stats.js"></script>
+<script src="js/Engine.js"></script>
+<script src="js/Timer.js"></script>
+<script src="js/Entity.js"></script>
+<script src="js/Player.js"></script>
+<script src="js/Game.js"></script>
+<script src="js/box2d.js"></script>
+
+
+<script>
+var qrsrc = 'http://chart.googleapis.com/chart?chs=64x64&cht=qr&chld=M|0&chl=';
+qrsrc += encodeURIComponent(window.location.href.substring(0, window.location.href.length - "view.html".length));
+$(document.body).append('<img id="qr" src="'+qrsrc+'" />');
+
+var canvas = document.getElementById('canvas');
+canvas.width = document.width;
+canvas.height = document.height - 5;
+var ctx = canvas.getContext('2d');
+
+var game = new Game();
+game.init(ctx);
+game.start();
+</script>
+
+</body>
+</html>
