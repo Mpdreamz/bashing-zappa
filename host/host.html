@@ -1,6 +1,49 @@
-haai
-<%= foo %>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Beuken: <%= title %></title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" media="all" href="/css/host.css">
+</head>
+<body>
+
+<canvas id="canvas"></canvas>
+
+<div id="explanation">Play ? &nbsp; Scan →</div>
+
+<div id="qr"></div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/zappa/zappa.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script src="/js/util.js"></script>
+<script src="/js/Stats.js"></script>
+<script src="/js/Box2dWeb-2.1.a.3.min.js"></script>
+<script src="/js/Physics.js"></script>
+<script src="/js/Engine.js"></script>
+<script src="/js/Timer.js"></script>
+<script src="/js/Entity.js"></script>
+<script src="/js/Player.js"></script>
+<script src="/js/Game.js"></script>
 <script>
+var qrsrc = 'http://chart.googleapis.com/chart?chs=96x96&cht=qr&chld=M|0&chl=';
+qrsrc += encodeURIComponent(window.location.href.substring(0, window.location.href.length - "view.html".length));
+document.getElementById('qr').innerHTML = '<img id="qr" src="'+qrsrc+'" />';
+
+var canvas = document.getElementById('canvas');
+canvas.width = document.width;
+canvas.height = document.height - 5; // To avoid scrollbars
+var ctx = canvas.getContext('2d');
+
+var game = new Game();
+game.init(ctx);
+game.start();
+
 window.GameHost = { name: '<%= name %>' }
 </script>
+<script src="/host/js/socket.js"></script>
+
+</body> 
+</html>
 

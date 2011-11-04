@@ -2,7 +2,7 @@
 <html>
   <head>
   	<meta charset="utf-8" />
-    <title>Bashing: <%= title %></title>
+    <title>Beuken: <%= title %></title>
 
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
     <link rel="stylesheet" media="all" href="/css/layout.css">
@@ -10,7 +10,7 @@
   <body>
   	<div id="site">
 	  	<header>
-			<h1>Bashing w00tcamp 2011</h1>
+			<h1>Beuken w00tcamp 2011</h1>
 		</header>
 		<article>
 			<%- body %>
@@ -21,18 +21,9 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/zappa/zappa.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-	<script src="/js/util.js"></script>
-	<script src="/js/Stats.js"></script>
-	<script src="/js/Engine.js"></script>
-	<script src="/js/Timer.js"></script>
-	<script src="/js/Entity.js"></script>
-	<script src="/js/Player.js"></script>
-	<script src="/js/Game.js"></script>
-	<script src="/js/Box2dWeb-2.1.a.3.min.js"></script>
 	<% for (var s in locals.scripts ) { %>
 		<script src="<%= scripts[s] %>"></script>
 	<%}%>
- 	
-
   </body> 
 </html>
+

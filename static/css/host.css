@@ -1,0 +1,24 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: #000;
+}
+
+#explanation {
+	position: absolute;
+	bottom: 35px;
+	right: 110px;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	font-family: Arial;
+}
+
+#qr {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
