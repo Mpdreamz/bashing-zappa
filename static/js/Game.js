@@ -30,6 +30,10 @@ Game.prototype.movePlayer = function(id, dir) {
 	}
 };
 
+Game.prototype.handleInput = function(event, data) {
+	console.log(event);
+};
+
 /*
 Game.prototype.pollServer = function() {
 	var _this = this;
