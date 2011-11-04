@@ -33,9 +33,9 @@ Engine.prototype.addEntity = function(entity) {
 };
 
 Engine.prototype.draw = function() {
-	//this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-	this.ctx.fillStyle = 'rgba(0, 0, 0, 1)';
-	this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+	this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+	//this.ctx.fillStyle = 'rgba(0, 0, 0, 1)';
+	//this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 	
 	var entitiesCount = this.entities.length;
 	for (var i = 0; i < entitiesCount; i++) {
