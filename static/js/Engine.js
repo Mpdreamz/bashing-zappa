@@ -1,5 +1,5 @@
 function Engine() {
-	this.entities = [];
+	this.entities = {};
 	this.ctx = null;
 	this.timer = new Timer();
 	this.stats = new Stats();
@@ -14,7 +14,7 @@ Engine.prototype.init = function(ctx) {
 	document.body.appendChild(this.stats.domElement);
 	this.physics = new Physics(60, false, this.ctx.canvas.width, this.ctx.canvas.height, 30);
 	
-	this.addEntity(new Player(this, 0));
+	//this.addEntity(new Player(this, 0));
 	
 	this.physics.setBodies(this.entities);
 };
@@ -28,19 +28,28 @@ Engine.prototype.start = function() {
 	})();
 };
 
-Engine.prototype.addEntity = function(entity) {
-	this.entities.push(entity);
-};
+//Engine.prototype.addEntity = function(entity) {
+//	this.entities.push(entity);
+//};
 
 Engine.prototype.draw = function() {
 	this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 	//this.ctx.fillStyle = 'rgba(0, 0, 0, 1)';
 	//this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 	
+	for(var e in this.entities) {
+		if (!this.entities.hasOwnProperty(e))
+			continue;
+		
+		this.entities[e].draw(this.ctx);
+	}
+	
+	/*
 	var entitiesCount = this.entities.length;
 	for (var i = 0; i < entitiesCount; i++) {
 		this.entities[i].draw(this.ctx);
 	}
+	*/
 };
 
 Engine.prototype.update = function() {
@@ -48,6 +57,17 @@ Engine.prototype.update = function() {
 	
 	var bodiesState = this.physics.getState();
 
+	for(var e in this.entities) {
+		if (!this.entities.hasOwnProperty(e))
+			continue;
+		
+		var entity = this.entities[e];
+		if (!entity.removeFromWorld) {
+			entity.update(bodiesState[e]);
+		}
+	}
+
+/*
 	var entitiesCount = this.entities.length;
 
 	for (var i = 0; i < entitiesCount; i++) {
@@ -57,12 +77,14 @@ Engine.prototype.update = function() {
 			entity.update(bodiesState[i]);
 		}
 	}
-
+*/
+	/*
 	for (var i = this.entities.length-1; i >= 0; --i) {
 		if (this.entities[i].removeFromWorld) {
 			this.entities.splice(i, 1);
 		}
 	}
+	*/
 };
 
 Engine.prototype.loop = function() {

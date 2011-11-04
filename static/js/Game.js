@@ -15,15 +15,17 @@ Game.prototype.draw = function() {
 
 Game.prototype.update = function() {
 	Engine.prototype.update.call(this);
-	this.entities.sort(function(p1, p2) {
-		return p1.score < p2.score;
-	});
+};
+
+Game.prototype.addPlayer = function(player) {
+	this.entities[player.id] = player;
+	this.physics.addBody(player);
 };
 
 Game.prototype.movePlayer = function(id, dir) {
 	var entitiesCount = this.entities.length;
 	for (var i = 0; i < entitiesCount; i++) {
-		var player = this.entities[i]; 
+		var player = this.entities[i];
 		if (player.id == id) {
 			player.requestedDir = dir;
 		}
@@ -31,7 +33,16 @@ Game.prototype.movePlayer = function(id, dir) {
 };
 
 Game.prototype.handleInput = function(event, data) {
-	console.log(event);
+	switch(event) {
+		case 'join':
+			this.addPlayer(new Player(this, data.id));
+			break;
+		case 'move':
+			console.log('move TODO');
+			break;
+		default:
+			console.warn('Unhandled event: ' + event);
+	}
 };
 
 /*
