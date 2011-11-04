@@ -1,5 +1,6 @@
-function Entity(engine, x, y) {
+function Entity(engine, x, y, id) {
 	this.engine = engine;
+	this.id = id;
 	this.x = x;
 	this.y = y;
 	this.removeFromWorld = false;

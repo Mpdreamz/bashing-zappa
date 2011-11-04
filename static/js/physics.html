@@ -1,179 +1,20 @@
 <html>
    <head>
       <title>Box2dWeb Demo</title>
-      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+      <style>
+      body {
+        margin:0;
+      }
+      </style>
+
    </head>
    <body onload="init();">
-      <canvas id="canvas" width="600" height="400" style="background-color:#333333;" ></canvas>
+      <canvas id="canvas" width="640" height="400" style="background-color:#333333;" ></canvas>
+
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+      <script type="text/javascript" src="Box2dWeb-2.1.a.3.min.js"></script>
+      <script type="text/javascript" src="host.js"></script>
+      <div id="pad" style="width:200px;height:200px; background-color:#ccc;"></div>
+
    </body>
-   <script type="text/javascript" src="Box2dWeb-2.1.a.3.min.js"></script>
-   <script type="text/javascript">
-      
-      function init() {
-         var   b2Vec2 = Box2D.Common.Math.b2Vec2
-            ,  b2AABB = Box2D.Collision.b2AABB
-         	,	b2BodyDef = Box2D.Dynamics.b2BodyDef
-         	,	b2Body = Box2D.Dynamics.b2Body
-         	,	b2FixtureDef = Box2D.Dynamics.b2FixtureDef
-         	,	b2Fixture = Box2D.Dynamics.b2Fixture
-         	,	b2World = Box2D.Dynamics.b2World
-         	,	b2MassData = Box2D.Collision.Shapes.b2MassData
-         	,	b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape
-         	,	b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
-         	,	b2DebugDraw = Box2D.Dynamics.b2DebugDraw
-            ,  b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef
-            ;
-         
-         var world = new b2World(
-               new b2Vec2(0, 0)    //gravity
-            ,  true                 //allow sleep
-         );
-         
-         var fixDef = new b2FixtureDef;
-         fixDef.density = 1;
-//         fixDef.friction = 0.5;
-//         fixDef.restitution = 0.2;
-//         fixDef.linearDamping = 1000;
-         
-         var bodyDef = new b2BodyDef;
-         
-         //create ground
-         bodyDef.type = b2Body.b2_staticBody;
-         fixDef.shape = new b2PolygonShape;
-         fixDef.shape.SetAsBox(20, 2);
-         bodyDef.position.Set(10, 400 / 30 + 1.8);
-         world.CreateBody(bodyDef).CreateFixture(fixDef);
-         bodyDef.position.Set(10, -1.8);
-         world.CreateBody(bodyDef).CreateFixture(fixDef);
-         fixDef.shape.SetAsBox(2, 14);
-         bodyDef.position.Set(-1.8, 13);
-         world.CreateBody(bodyDef).CreateFixture(fixDef);
-         bodyDef.position.Set(21.8, 13);
-         world.CreateBody(bodyDef).CreateFixture(fixDef);
-         
-         
-         //maak ff 2 players aan
-         var players = {};
-         bodyDef.type = b2Body.b2_dynamicBody;
-         for(var i = 0; i < 2; ++i) {
-          fixDef.shape = new b2CircleShape(1);
-          
-          bodyDef.position.x = Math.random() * 10;
-          bodyDef.position.y = Math.random() * 10;
-          bodyDef.linearDamping = 1;
-          bodyDef.angularDamping = 1;
-          players['player' + i] = {
-            body: world.CreateBody(bodyDef),
-            direction: b2Vec2(0, 1),
-            force: new b2Vec2(0, 0)
-          };
-          
-          players['player' + i].body.CreateFixture(fixDef);
-         }
-         
-         //setup debug draw
-         var debugDraw = new b2DebugDraw();
-  			 debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
-	  		 debugDraw.SetDrawScale(30.0);
-	  		 debugDraw.SetFillAlpha(0.5);
-	   		 debugDraw.SetLineThickness(1.0);
-			   debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
-			   world.SetDebugDraw(debugDraw);
-         
-      window.setInterval(update, 1000 / 30);
-      
-      
-      var track = false;
-        $("#pad").live("mousedown", function(e) {
-        track = true;
-      });
-      $("#pad").live("mousemove", function(e) {
-        if (track) {
-        var x = e.offsetX - 100;
-        var y = e.offsetY - 100;
-        players.player1.force = new b2Vec2(x, y);
-        $("#pad").text(x + ", " + y)
-
-        }
-      })
-      
-      $("#pad").live("mouseup", function(e) {
-        track = false;
-        $("#pad").text("0, 0")
-        players.player1.force = new b2Vec2(0, 0);
-      });
-      
-      $(document).keydown(function(c) {
-        if (c.keyCode == 37) {
-          players['player1'].force = new b2Vec2(-10,0);
-        }
-        if (c.keyCode == 38) {
-          players['player1'].force = new b2Vec2(0,-10);
-        }
-        if (c.keyCode == 39) {
-          players['player1'].force = new b2Vec2(10,0);
-        }
-        if (c.keyCode == 40) {
-          players['player1'].force = new b2Vec2(0,10);
-        }
-      });
-
-      $(document).keyup(function(c) {
-        players['player1'].force = new b2Vec2(0, 0);
-      }); 
-
-
-       //update
-       
-       function update() {
-       
-
-    var f = players.player1.force.Copy();
-    f.Multiply(0.05);
-
-	players.player1.body.ApplyImpulse(f, players.player1.body.GetPosition());
- 
-
-     
-       
-          world.Step(1 / 30, 10, 10);
-          world.DrawDebugData();
-          world.ClearForces();
-       };
-         
-         //helpers
-         
-         //http://js-tut.aardon.de/js-tut/tutorial/position.html
-         function getElementPosition(element) {
-            var elem=element, tagname="", x=0, y=0;
-           
-            while((typeof(elem) == "object") && (typeof(elem.tagName) != "undefined")) {
-               y += elem.offsetTop;
-               x += elem.offsetLeft;
-               tagname = elem.tagName.toUpperCase();
-
-               if(tagname == "BODY")
-                  elem=0;
-
-               if(typeof(elem) == "object") {
-                  if(typeof(elem.offsetParent) == "object")
-                     elem = elem.offsetParent;
-               }
-            }
-
-            return {x: x, y: y};
-         }
-
-
-      };
-      
-    
-
-      
-      
-   
-   </script>
-   
-   <div id="pad" style="width:200px;height:200px; background-color:#ccc;">
-   </div>
 </html>
