@@ -9,6 +9,8 @@ function Player(engine, id) {
 	this.g = Math.floor(Math.random()*256);
 	this.b = Math.floor(Math.random()*256);
 	this.isDead = false;
+	this.img = new Image();
+	this.img.src = '/img/test_unit_outline.png';
 }
 Player.prototype = new Entity();
 Player.prototype.constructor = Player;
@@ -29,18 +31,12 @@ Player.prototype.update = function(state) {
 };
 
 Player.prototype.draw = function(ctx) {
-	ctx.beginPath();
-	if(this.isSuper) {
-		ctx.strokeStyle = 'rgb('+this.r+','+this.g+','+this.b+')';
-		ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);
-		ctx.stroke();
-	} else {
-		ctx.fillStyle = 'rgb('+this.r+','+this.g+','+this.b+')';
-		ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);
-		ctx.fill();
-	}
-	// Score
-	//ctx.fillStyle = 'rgb(255, 255, 255)';
-	//ctx.fillText(this.score, this.x-7, this.y+4);
+	//ctx.beginPath();
+	//ctx.fillStyle = 'rgb('+this.r+','+this.g+','+this.b+')';
+	//ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);
+	//ctx.fill();
+	
+	ctx.drawImage(this.img, this.x, this.y);
+	
 	Entity.prototype.draw.call(this, ctx);
 };

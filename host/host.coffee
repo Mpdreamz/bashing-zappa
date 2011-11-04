@@ -4,12 +4,12 @@
 	@include "host/host.io.coffee"
 
 	@get "/host/:name" : ->
-		@render "/host/host.html", 
-			scripts: ["/host/js/socket.js"],
-			foo: "bar", 
+		@render "/host/host.html",
+			layout: false,
+			title: "Gamepje",
 			name: @params.name,
-			title: "Gamepje"
-	
+			scripts: ["/host/js/socket.js"]
+
 	@post "/game/create" : ->
 		@redirect "/host/" + @body.name
 	
