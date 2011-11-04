@@ -1,17 +1,106 @@
-<% scripts.push("/js/controls/controls.js") %>
-<script>
-window.GameHost = { name: '<%= name %>' }
-</script>
-<h1><%= name %></h1>
-<h2>emit</h2>
+<!DOCTYPE html>
+<html>
+  <head>
+  	<meta charset="utf-8" />
+    <title>Bashing: <%= title %></title>
 
-<label>Room name</label>
-<input type="text" id="text" name="room" />
-<input type="submit" id="sub" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+	<script>
+	window.GameHost = { name: '<%= name %>' }
+	</script>
+    <style>
+    	* {
+    		margin:0;
+    		padding:0;
+    	}
+    	html, body {
+    		width:100%;
+    		height:100%;
+    	}
+    	body {
+    		background:url(/img/control_image.png);
+    		background-size:100% 100%;
+    	}
+    	#container {
+    		
+    	}
+    	#gamepad-container {
+    		float:left;
+    		height:100%;
+    		width:60%;
+    		display:block;
+    	}
+    	#gamepad {
+    		width:200px;
+    		height:200px;	
+    		background:wheat;
+    		postion:relative;
+    	}
+    	#center {
+    		width:2px;
+    		height:2px;	
+    		background:black;
+    		position:absolute;
+    		left:99px;
+    		top:99px;
+    	}
+    	#button-container {
+    		background: gold;
+    		float:left;
+    		height:100%;
+    		width:40%;
+    		display:block;
+    	}
+    	#console {
+    		background:black;
+    		color:white;
+    		font-family:"monospace";
+    		bottom:0;
+    		width:400px;
+    		height:20px;
+    		position:absolute;
+    	}
+    </style>
+  </head>
+  <body>
 
-<div id="dpad">
-	<span class="up">⇧</span>
-	<span class="right">⇨</span>
-	<span class="down">⇩</span>
-	<span class="left">⇦</span>
-</div>
+	<div id="gamepad-container">
+		<div id="gamepad"><div id="center"></div></div> 
+	</div>
+	<div id="button-container">
+	</div>
+
+
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/zappa/zappa.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/plugins/touchable.js"></script>
+	<script src="/play/js/socket.js" />
+	<script src="/js/gamepad/gamepad.js"></script>
+	<script>
+		var div = $("#gamepad").Touchable();
+		$("#gamepad").bind("mousemove", onGamepadMoved);
+		$("#gamepad").bind("touchmove", onGamepadMoved);
+
+		function onGamepadMoved(e)
+		{
+			if (typeof e.pageX == 'undefined'){
+				return;
+			}
+			var centerX = $(this).position().left + Math.round($(this).width() / 2);
+			var centerY = $(this).position().top + Math.round($(this).height() / 2);
+			//var height = $(this).height();
+			var x = e.pageX - centerX;
+			var y = e.pageY - centerY;
+			$("#gamepad").trigger("touchmoved", [{ x: x, y: y }])
+		}
+		
+		/*$('#gamepad').live('touchstart', function(e) {
+		  var xPos = e.originalEvent.touches[0].pageX;
+		  alert(xPos);
+		}
+		alert('');*/
+	</script>
+  </body> 
+</html>

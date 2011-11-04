@@ -1,4 +1,5 @@
 require("zappa") 'localhost', 8080, ->
+	#10.42.4.255
 	# bodyParser -- parses POSTS bodies (application/form or text/json)
 	# @app.router -- todo: what does this instruct exactly ?
 	# static -- instructs express to serve files in that folder as statics

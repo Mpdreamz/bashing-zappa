@@ -9,8 +9,10 @@ function Player(engine, id) {
 	this.g = Math.floor(Math.random()*256);
 	this.b = Math.floor(Math.random()*256);
 	this.isDead = false;
-	this.img = new Image();
-	this.img.src = '/img/test_unit_outline.png';
+	this.ballImg = new Image();
+	this.ballImg.src = '/img/wreck_ball_64x64.png';
+	this.engineImg = new Image();
+	this.engineImg.src = '/img/test_unit_25x35.png';
 }
 Player.prototype = new Entity();
 Player.prototype.constructor = Player;
@@ -36,7 +38,13 @@ Player.prototype.draw = function(ctx) {
 	//ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);
 	//ctx.fill();
 	
-	ctx.drawImage(this.img, this.x, this.y);
+	ctx.beginPath();
+	ctx.moveTo(this.x, this.y);
+	ctx.lineTo(this.x, this.y + 40);
+	ctx.stroke();
+	
+	ctx.drawImage(this.ballImg, this.x - 32, this.y - 32);
+	ctx.drawImage(this.engineImg, this.x - 13, this.y + 40);
 	
 	Entity.prototype.draw.call(this, ctx);
 };

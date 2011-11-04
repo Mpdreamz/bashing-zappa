@@ -29,8 +29,8 @@ function Physics(intervalRate, adaptive, width, height, scale) {
 	
 	this.fixDef = new b2FixtureDef;
 	this.fixDef.density = 1.0;
-	this.fixDef.friction = 0.5;
-	this.fixDef.restitution = 0.2;
+	//this.fixDef.friction = 0.5;
+	//this.fixDef.restitution = 0.2;
 }
 
 Physics.prototype.update = function() {
@@ -86,6 +86,21 @@ Physics.prototype.setBodies = function(bodyEntities) {
     }
     this.ready = true;
 };
+
+Physics.prototype.addBody = function(entity) {
+	var bodyDef = new b2BodyDef;
+        
+    bodyDef.type = b2Body.b2_dynamicBody;
+    
+    bodyDef.position.x = entity.x;
+    bodyDef.position.y = entity.y;
+    bodyDef.userData = entity.id;
+    bodyDef.angle = entity.angle;
+    var body = this.registerBody(bodyDef);
+    
+    this.fixDef.shape = new b2CircleShape(entity.radius);
+    body.CreateFixture(this.fixDef);
+}
 
 Physics.prototype.registerBody = function(bodyDef) {
 	var body = this.world.CreateBody(bodyDef);

@@ -19,9 +19,9 @@
 	@client "/host/js/socket.js" : ->
 		@on connect: ->
 			@emit host: { name: GameHost.name, host: true }
-		@on host_created: ->
-			console.log "host_created: " + @data.name
-		@on client_message: ->
-			alert @data.text
+		@on join: ->
+			game.handleInput 'join', @data
+		@on move: ->
+			game.handleInput 'move', @data
 		@connect();
 
