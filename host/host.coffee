@@ -5,7 +5,7 @@
 
 	@get "/host/:name" : ->
 		@render "/host/host.html", 
-			#layout: @defaultLayout
+			scripts: ["/host/js/socket.js"],
 			foo: "bar", 
 			name: @params.name,
 			title: "Gamepje"

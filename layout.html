@@ -3,9 +3,7 @@
   <head>
   	<meta charset="utf-8" />
     <title>Bashing: <%= title %></title>
-	<script src="/socket.io/socket.io.js"></script>
-	<script src="/zappa/zappa.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
     <link rel="stylesheet" media="all" href="/css/layout.css">
   </head>
@@ -19,7 +17,20 @@
 	</article>
 	<footer>
 	</footer>
-	
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/zappa/zappa.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+	<script src="/js/util.js"></script>
+	<script src="/js/Stats.js"></script>
+	<script src="/js/Engine.js"></script>
+	<script src="/js/Timer.js"></script>
+	<script src="/js/Entity.js"></script>
+	<script src="/js/Player.js"></script>
+	<script src="/js/Game.js"></script>
+	<script src="/js/box2d.js"></script>
+	<% for (var s in locals.scripts ) { %>
+		<script src="<%= scripts[s] %>"></script>
+	<%}%>
  	
 
   </body>

@@ -5,11 +5,10 @@
 
 	@get "/play/:name" : ->
 		@render "/player/player.html", 
+			scripts: ["/play/js/socket.js"],
 			foo: "bar", 
 			name: @params.name,
 			title: "Gamepje"
-
-		#@render gameplay: { name: @params.name }
 
 	@client "/play/js/socket.js" : ->
 		@on connect: ->
