@@ -18,7 +18,8 @@ body {
 	font-size: 18px;
 	font-weight: bold;
 	font-family: 'Arial';
-	text-shadow: 0 0 .2em #000;
+	/*text-shadow: 0 0 .2em #000;*/
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 #qr {
