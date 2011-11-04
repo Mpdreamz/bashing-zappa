@@ -1,12 +1,13 @@
 @include = ->
-	
+
+	#include host server io event handlers
 	@include "host/host.io.coffee"
 
 	@get "/host/:name" : ->
-		#@render gamehost: { name: @params.name }
-		@render "/host/index.html", 
+		@render "/host/host.html", 
+			scripts: ["/host/js/socket.js"],
 			foo: "bar", 
-			name: @name,
+			name: @params.name,
 			title: "Gamepje"
 	
 	@post "/game/create" : ->
