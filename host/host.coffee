@@ -23,5 +23,9 @@
 			console.log "host_created: " + @data.name
 		@on client_message: ->
 			alert @data.text
+		
+		@on touchmoved: ->
+			console.log(@data)
+
 		@connect();
 

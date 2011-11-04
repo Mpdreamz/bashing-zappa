@@ -5,8 +5,7 @@
 
 	@get "/play/:name" : ->
 		@render "/player/player.html", 
-			scripts: ["/play/js/socket.js"],
-			foo: "bar", 
+			layout: false, 
 			name: @params.name,
 			title: "Gamepje"
 
@@ -19,4 +18,7 @@
 			alert @data.text
 		@connect();
 		$ =>
+			$("#gamepad").bind "touchmoved", (e, data) =>
+				$("#button-container").append('x' + data.x + ',y' + data.y + '**>>');
+				@emit touchmoved: data
 			$("#sub").bind("click action", => @emit client_send: { text: $("#text").val() } )
