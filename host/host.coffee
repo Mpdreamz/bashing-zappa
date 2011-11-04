@@ -4,7 +4,9 @@
 	@include "host/host.io.coffee"
 
 	@get "/host/:name" : ->
-		@redis_client().zrank "bashing::hosts", @params.name, (err, count) =>
+		redis_client = @redis_client()
+		redis_client.zrank "bashing::hosts", @params.name, (err, count) =>
+			redis_client.quit()
 			console.log "/host/game hit " + count
 			console.log err if err
 			if count == null

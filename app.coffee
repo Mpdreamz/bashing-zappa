@@ -23,10 +23,13 @@ require("zappa") 8080, ->
 	@include "./player/player.coffee"
 
 	@get "/" : ->
-		@redis_client().zrange "bashing::hosts", 0, -1, (err, hosts) =>
-			console.log hosts
+		redis_client = @redis_client();
+		redis_client.zrevrangebyscore "bashing::hosts", 100000000, 0, "WITHSCORES", (err, hosts) =>
+			redis_client.quit()
+			console.log err if err
 			@render "/shared/index.html", 
 				foo: "bar", 
 				hosts: hosts
 				title: "Index!"
+
 
