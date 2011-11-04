@@ -1,4 +1,4 @@
-require("zappa") 'localhost', 8080, ->
+require("zappa") 8080, ->
 	#10.42.4.255
 	# bodyParser -- parses POSTS bodies (application/form or text/json)
 	# @app.router -- todo: what does this instruct exactly ?
@@ -29,3 +29,4 @@ require("zappa") 'localhost', 8080, ->
 				foo: "bar", 
 				hosts: hosts
 				title: "Index!"
+
