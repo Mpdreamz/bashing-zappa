@@ -3,6 +3,7 @@ function Engine() {
 	this.ctx = null;
 	this.timer = new Timer();
 	this.stats = new Stats();
+	this.physics = null;
 }
 
 Engine.prototype.init = function(ctx) {
@@ -11,6 +12,11 @@ Engine.prototype.init = function(ctx) {
 	this.stats.domElement.style.left = '0px';
 	this.stats.domElement.style.top = '0px';
 	document.body.appendChild(this.stats.domElement);
+	this.physics = new Physics(60, false, this.ctx.canvas.width, this.ctx.canvas.height, 30);
+	
+	this.addEntity(new Player(this, 0));
+	
+	this.physics.setBodies(this.entities);
 };
 
 Engine.prototype.start = function() {
@@ -28,7 +34,7 @@ Engine.prototype.addEntity = function(entity) {
 
 Engine.prototype.draw = function() {
 	//this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-	this.ctx.fillStyle = 'rgba(0, 0, 0, .04)';
+	this.ctx.fillStyle = 'rgba(0, 0, 0, 1)';
 	this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 	
 	var entitiesCount = this.entities.length;
@@ -38,13 +44,17 @@ Engine.prototype.draw = function() {
 };
 
 Engine.prototype.update = function() {
+	this.physics.update();
+	
+	var bodiesState = this.physics.getState();
+
 	var entitiesCount = this.entities.length;
 
 	for (var i = 0; i < entitiesCount; i++) {
 		var entity = this.entities[i];
 		
 		if (!entity.removeFromWorld) {
-			entity.update();
+			entity.update(bodiesState[i]);
 		}
 	}
 

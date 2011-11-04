@@ -5,26 +5,12 @@ Game.prototype = new Engine();
 Game.prototype.constructor = Game;
 
 Game.prototype.start = function() {
-	this.pollServer();
+	//this.pollServer();
 	Engine.prototype.start.call(this);
 };
 
 Game.prototype.draw = function() {
 	Engine.prototype.draw.call(this);
-	
-	var entitiesCount = this.entities.length;
-	for (var i = 0; i < entitiesCount; i++) {
-		if(i >= 5) break;
-		var player = this.entities[i];
-		var x = this.grid.margin + 80 * i;
-		var y = this.ctx.canvas.height - player.radius*2;
-		this.ctx.beginPath();
-		this.ctx.fillStyle = 'rgb('+player.r+','+player.g+','+player.b+')';
-		this.ctx.arc(x, y, player.radius, 0, Math.PI*2, false);
-		this.ctx.fill();
-		this.ctx.fillStyle = 'rgb(255, 255, 255)';
-		this.ctx.fillText(player.score, x + player.radius + 4, y + 4);
-	}
 };
 
 Game.prototype.update = function() {
@@ -44,6 +30,7 @@ Game.prototype.movePlayer = function(id, dir) {
 	}
 };
 
+/*
 Game.prototype.pollServer = function() {
 	var _this = this;
 	$.get('poll', function(data) {
@@ -60,3 +47,4 @@ Game.prototype.pollServer = function() {
 		setTimeout(function(){ _this.pollServer(); }, 50);
 	});
 };
+*/
