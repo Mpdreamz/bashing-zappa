@@ -12,6 +12,8 @@
 	@client "/play/js/socket.js" : ->
 		@on connect: ->
 			@emit play: { name: GameHost.name }
+		@on host_died: ->
+			window.location =  "/error/host_died/" + GameHost.name
 		@connect();
 		$ =>
 			$("#gamepad").bind "touchmoved", (e, data) =>

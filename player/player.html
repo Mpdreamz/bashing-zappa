@@ -92,9 +92,9 @@
 
 		function onGamepadMoved(e)
 		{
-			if (typeof e.pageX == 'undefined'){
+			if (typeof e.pageX == 'undefined')
 				return;
-			}
+
 			var gamepad = $("#gamepad");
 			var centerX = gamepad.offset().left + Math.round(gamepad.width() / 2);
 			var centerY = gamepad.offset().top + Math.round(gamepad.height() / 2);
@@ -103,8 +103,9 @@
 			var y = e.pageY - centerY;
 			var d = distance(0, 0, x, y );
 			var maxDistance = 60;
+            var dPower = maxDistance / d;
 			if (d > maxDistance) {
-				var dPower = maxDistance / d;
+				
 				x = Math.round(x * dPower);
 				y = Math.round(y * dPower);
 			}
@@ -112,13 +113,7 @@
 			$("#gamepad").trigger("touchmoved", [{ x: x, y: y }]);
 			
 			var console = $("#console");
-
-
-			
-
 			console.text('x:' + x + ', y:' + y + ', dist:' + d  + ', dpower:' + dPower);
-
-
 
 			//button positioning
 			var button = $("#gamepad-button");

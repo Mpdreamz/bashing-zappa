@@ -4,11 +4,16 @@
 	@include "host/host.io.coffee"
 
 	@get "/host/:name" : ->
-		@render "/host/host.html",
-			layout: false,
-			title: "Gamepje",
-			name: @params.name,
-			scripts: ["/host/js/socket.js"]
+		@redis_client().zrank "bashing::hosts", @params.name, (err, count) =>
+			console.log "/host/game hit " + count
+			console.log err if err
+			if count == null
+				@render "/host/host.html",
+					layout: false,
+					title: "Gamepje",
+					name: @params.name,
+					scripts: ["/host/js/socket.js"]
+			else @redirect "/error/host_in_use/" + @params.name
 
 	@post "/game/create" : ->
 		@redirect "/host/" + @body.name
