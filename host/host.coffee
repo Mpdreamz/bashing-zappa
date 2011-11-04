@@ -3,7 +3,11 @@
 	@include "host/host.io.coffee"
 
 	@get "/host/:name" : ->
-		@render gamehost: { name: @params.name }
+		#@render gamehost: { name: @params.name }
+		@render "/host/index.html", 
+			foo: "bar", 
+			name: @name,
+			title: "Gamepje"
 	
 	@post "/game/create" : ->
 		@redirect "/host/" + @body.name
@@ -19,9 +23,4 @@
 		@on client_message: ->
 			alert @data.text
 		@connect();
-	 
-	@view gamehost: ->
-		@scripts = ["/host/js/socket.js"]
-		@client_state = "window.GameHost = { name: \"#{@name}\"}"
-		@title = "Bashing.Zappa host:" + @name
-		h1 @host
+
