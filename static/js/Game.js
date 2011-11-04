@@ -38,11 +38,11 @@ Game.prototype.handleInput = function(event, data) {
 			this.addPlayer(new Player(this, data.id));
 			break;
 		case 'move':
-			//var player = this.entities[data.player];
-			//player.force = new b2Vec2(data.x, data.y);
+			var player = this.entities[data.player];
+			player.force = new b2Vec2(data.x, data.y);
 			//player.oldForce = player.force.Copy();
-			var player = this.physics.bodiesMap[data.player];
-			player.ApplyImpulse(new b2Vec2(data.x, data.y), player.GetPosition());
+			//var player = this.physics.bodiesMap[data.player];
+			//player.ApplyImpulse(new b2Vec2(data.x, data.y), player.GetPosition());
 			break;
 		default:
 			console.warn('Unhandled event: ' + event);

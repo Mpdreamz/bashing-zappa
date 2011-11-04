@@ -102,6 +102,7 @@ Physics.prototype.addBody = function(entity) {
     
     this.fixDef.shape = new b2CircleShape(entity.radius);
     body.CreateFixture(this.fixDef);
+    entity.body = body;
 }
 
 Physics.prototype.registerBody = function(bodyDef) {

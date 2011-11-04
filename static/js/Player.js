@@ -5,13 +5,13 @@ function Player(engine, id) {
 	this.y = 100;
 	this.angle = 2;
 	this.radius = 10;
-	//this.force = new b2Vec2(0, 0);
+	this.force = new b2Vec2(0, 0);
 	//this.oldForce = new b2Vec(0, 0);
 	this.isDead = false;
 	this.ballImg = new Image();
 	this.ballImg.src = '/img/wreck_ball_64x64.png';
 	this.engineImg = new Image();
-	this.engineImg.src = '/img/test_unit_25x35.png';
+	this.engineImg.src = '/img/test_unit01.png';
 }
 Player.prototype = new Entity();
 Player.prototype.constructor = Player;
@@ -27,6 +27,8 @@ Player.prototype.update = function(state) {
 	this.x = state.x;
 	this.y = state.y;
 	this.angle = state.angle;
+	
+	this.body.ApplyImpulse(new b2Vec2(this.force.x * 20, this.force.y * 20), this.body.GetPosition());
 	
 	Entity.prototype.update.call(this);
 };
