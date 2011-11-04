@@ -9,9 +9,6 @@
    <script type="text/javascript" src="Box2dWeb-2.1.a.3.min.js"></script>
    <script type="text/javascript">
       
-      var players = {
-      };
-      
       function init() {
          var   b2Vec2 = Box2D.Common.Math.b2Vec2
             ,  b2AABB = Box2D.Collision.b2AABB
@@ -34,9 +31,9 @@
          
          var fixDef = new b2FixtureDef;
          fixDef.density = 1;
-         fixDef.friction = 0.5;
-         fixDef.restitution = 0.2;
-         fixDef.linearDamping = 1000;
+//         fixDef.friction = 0.5;
+//         fixDef.restitution = 0.2;
+//         fixDef.linearDamping = 1000;
          
          var bodyDef = new b2BodyDef;
          
@@ -56,72 +53,90 @@
          
          
          //maak ff 2 players aan
+         var players = {};
          bodyDef.type = b2Body.b2_dynamicBody;
          for(var i = 0; i < 2; ++i) {
-          fixDef.shape = new b2CircleShape(
-            1
-          );
+          fixDef.shape = new b2CircleShape(1);
           
           bodyDef.position.x = Math.random() * 10;
           bodyDef.position.y = Math.random() * 10;
+          bodyDef.linearDamping = 1;
+          bodyDef.angularDamping = 1;
           players['player' + i] = {
             body: world.CreateBody(bodyDef),
-            force: b2Vec2(0, 0)
+            direction: b2Vec2(0, 1),
+            force: new b2Vec2(0, 0)
           };
+          
           players['player' + i].body.CreateFixture(fixDef);
          }
          
          //setup debug draw
          var debugDraw = new b2DebugDraw();
-			debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
-			debugDraw.SetDrawScale(30.0);
-			debugDraw.SetFillAlpha(0.5);
-			debugDraw.SetLineThickness(1.0);
-			debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
-			world.SetDebugDraw(debugDraw);
+  			 debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
+	  		 debugDraw.SetDrawScale(30.0);
+	  		 debugDraw.SetFillAlpha(0.5);
+	   		 debugDraw.SetLineThickness(1.0);
+			   debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+			   world.SetDebugDraw(debugDraw);
          
-      window.setInterval(update, 1000 / 60);
+      window.setInterval(update, 1000 / 30);
       
+      
+      var track = false;
+        $("#pad").live("mousedown", function(e) {
+        track = true;
+      });
+      $("#pad").live("mousemove", function(e) {
+        if (track) {
+        var x = e.offsetX - 100;
+        var y = e.offsetY - 100;
+        players.player1.force = new b2Vec2(x, y);
+        $("#pad").text(x + ", " + y)
 
-         
+        }
+      })
+      
+      $("#pad").live("mouseup", function(e) {
+        track = false;
+        $("#pad").text("0, 0")
+        players.player1.force = new b2Vec2(0, 0);
+      });
+      
       $(document).keydown(function(c) {
         if (c.keyCode == 37) {
-          players['player1'].force = new b2Vec2(1,0);
+          players['player1'].force = new b2Vec2(-10,0);
         }
-        
         if (c.keyCode == 38) {
-          players['player1'].force = null;
-          players['player1'].body.SetAngularDamping(10000000);
+          players['player1'].force = new b2Vec2(0,-10);
+        }
+        if (c.keyCode == 39) {
+          players['player1'].force = new b2Vec2(10,0);
+        }
+        if (c.keyCode == 40) {
+          players['player1'].force = new b2Vec2(0,10);
         }
       });
+
       $(document).keyup(function(c) {
-        if (c.keyCode == 37) {
-        // alter force
-        }
+        players['player1'].force = new b2Vec2(0, 0);
       }); 
 
-       function getBodyCB(fixture) {
-          if(fixture.GetBody().GetType() != b2Body.b2_staticBody) {
-             if(fixture.GetShape().TestPoint(fixture.GetBody().GetTransform(), mousePVec)) {
-                selectedBody = fixture.GetBody();
-                return false;
-             }
-          }
-          return true;
-       }
-       
+
        //update
        
        function update() {
-       for (var playerName in players) {
-          var player = players[playerName];
-          if (player.force) {
-            player.body.ApplyImpulse(player.force, player.body.GetPosition());
-            player.force = null;
-          } 
-       }
        
-          world.Step(1 / 60, 10, 10);
+
+    var f = players.player1.force.Copy();
+    f.Multiply(0.05);
+
+	players.player1.body.ApplyImpulse(f, players.player1.body.GetPosition());
+ 
+
+     
+       
+          world.Step(1 / 30, 10, 10);
           world.DrawDebugData();
           world.ClearForces();
        };
@@ -151,8 +166,14 @@
 
 
       };
+      
+    
+
+      
+      
    
    </script>
    
-   
+   <div id="pad" style="width:200px;height:200px; background-color:#ccc;">
+   </div>
 </html>
