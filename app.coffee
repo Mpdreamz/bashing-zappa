@@ -30,26 +30,3 @@ require("zappa") 'localhost', 8080, ->
 				foo: "bar", 
 				hosts: hosts
 				title: "Index!"
-			
-	@view layout: ->
-		doctype 5
-		html ->
-			head ->
-				meta charset: 'utf-8'
-				title @title
-				meta name: 'viewport', content: 'width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'
-				if @stylesheets
-					for s in @stylesheets
-						link rel: 'stylesheet', href: s
-				if @stylesheet
-					link(rel: 'stylesheet', href: @stylesheet)
-				style @style if @style
-			body @body
-			script src: '/socket.io/socket.io.js'
-			script src: '/zappa/zappa.js'
-			script src: "http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"
-			script(type: "text/javascript", @client_state) if @client_state		
-			if @scripts
-				for s in @scripts
-					script src: s
-			script(src: @script) if @script
