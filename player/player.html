@@ -18,8 +18,9 @@
     		height:100%;
     	}
     	body {
-    		background:url(/img/control_image.png);
+    		background:url(/img/bg_control.png);
     		background-size:100% 100%;
+    		background-position:0 0;
     	}
     	#container {
     		
@@ -31,25 +32,29 @@
     		display:block;
     	}
     	#gamepad {
-    		width:200px;
-    		height:200px;	
-    		background:wheat;
-    		postion:relative;
+    		width:180px;
+    		height:180px;	
+    		background:url(/img/joystick_socket.png);
+    		background-size:100% 100%;
+    		margin-top:20px;
+    		margin-left:20px;
     	}
-    	#center {
-    		width:2px;
-    		height:2px;	
+    	#gamepad-button {
+    		left:2px;
+    		top:2px;	
     		background:black;
     		position:absolute;
-    		left:99px;
-    		top:99px;
+    		width:80px;
+    		height:80px;
+    		background:url(/img/joystick.png);
+    		background-size:100% 100%;
     	}
     	#button-container {
-    		background: gold;
     		float:left;
     		height:100%;
     		width:40%;
     		display:block;
+    		display:none;
     	}
     	#console {
     		background:black;
@@ -65,10 +70,16 @@
   <body>
 
 	<div id="gamepad-container">
+<<<<<<< HEAD
+		<div id="gamepad"><div id="gamepad-button"></div></div> 
+		 
+=======
 		<div id="gamepad"><div id="center"></div></div> 
+>>>>>>> e96126ddba9c0391f95cbadff3fa7c80fda20c72
 	</div>
 	<div id="button-container">
 	</div>
+	<div id="console"></div>
 
 
 
@@ -80,20 +91,48 @@
 	<script src="/js/gamepad/gamepad.js"></script>
 	<script>
 		var div = $("#gamepad").Touchable();
-		$("#gamepad").bind("mousemove", onGamepadMoved);
-		$("#gamepad").bind("touchmove", onGamepadMoved);
+		$("#gamepad-container").bind("mousemove", onGamepadMoved);
+		$("#gamepad-container").bind("touchmove", onGamepadMoved);
 
 		function onGamepadMoved(e)
 		{
 			if (typeof e.pageX == 'undefined'){
 				return;
 			}
-			var centerX = $(this).position().left + Math.round($(this).width() / 2);
-			var centerY = $(this).position().top + Math.round($(this).height() / 2);
-			//var height = $(this).height();
+			var gamepad = $("#gamepad");
+			var centerX = gamepad.offset().left + Math.round(gamepad.width() / 2);
+			var centerY = gamepad.offset().top + Math.round(gamepad.height() / 2);
+
 			var x = e.pageX - centerX;
 			var y = e.pageY - centerY;
-			$("#gamepad").trigger("touchmoved", [{ x: x, y: y }])
+			var d = distance(0, 0, x, y );
+			var maxDistance = 60;
+			if (d > maxDistance) {
+				var dPower = maxDistance / d;
+				x = Math.round(x * dPower);
+				y = Math.round(y * dPower);
+			}
+
+			$("#gamepad").trigger("touchmoved", [{ x: x, y: y }]);
+			
+			var console = $("#console");
+
+
+			
+
+			console.text('x:' + x + ', y:' + y + ', dist:' + d  + ', dpower:' + dPower);
+
+
+
+			//button positioning
+			var button = $("#gamepad-button");
+			var buttonX = x + centerX - Math.round($(button).width() / 2);
+			var buttonY = y + centerY - Math.round($(button).height() / 2);
+			button.css({left: buttonX + 'px', top: buttonY + 'px'});
+		}
+
+		function distance(x1, y1, x2, y2) {
+			return Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
 		}
 		
 		/*$('#gamepad').live('touchstart', function(e) {
