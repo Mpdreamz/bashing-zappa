@@ -3,11 +3,12 @@ require("zappa") 'localhost', 8080, ->
 	# @app.router -- todo: what does this instruct exactly ?
 	# static -- instructs express to serve files in that folder as statics
 	@use 'bodyParser', @app.router, static: __dirname + '/static',
-	
+
+	#root view resolver to basedir
 	@set views: __dirname,
-	@set "view options", { layout: __dirname + "/shared/layout.html" }
 	
-	@register html: require('ejs');
+	# serve html files not in /static with the ejs view engine
+	@register html: require('ejs')
 		
 	# helpers are available in both io and http handlers
 	@helper redis_client: ->
@@ -20,9 +21,6 @@ require("zappa") 'localhost', 8080, ->
 	# everything serving the player related resources
 	@include "./player/player.coffee"
 
-	# shared io code for both host and player
-	@include "./server.io.coffee"
-	
 	@get "/" : ->
 		@redis_client().zrange "bashing::hosts", 0, -1, (err, hosts) =>
 			console.log hosts
@@ -30,4 +28,3 @@ require("zappa") 'localhost', 8080, ->
 				foo: "bar", 
 				hosts: hosts
 				title: "Index!"
-
