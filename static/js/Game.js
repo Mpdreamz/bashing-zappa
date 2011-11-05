@@ -51,7 +51,7 @@ Game.prototype.addPlayer = function(player) {
 Game.prototype.handleInput = function(event, data) {
 	switch(event) {
 		case 'join':
-			this.addPlayer(new Player(this, data.id));
+			this.addPlayer(new Player(this, data.id, data.playername));
 			break;
 		case 'move':
 			var player = this.entities[data.player];
