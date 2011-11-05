@@ -14,8 +14,6 @@ sudo apt-get install redis-server
 npm install
 ```
 
-
-
 #run
 ```
 npm start
