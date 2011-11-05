@@ -3,10 +3,21 @@
 <head>
 	<meta charset="utf-8" />
 	<title></title>
-	<link type="text/css" rel="stylesheet" href="css/view.css">
+	<style>
+		.timer {
+			position:absolute;
+			top:100px; left:100px;
+			z-index:100;
+			font-size:50px;
+		}
+		canvas {
+			position:absolute;
+			z-index:80;
+		}
+	</style>
 </head>
 <body>
-
+<div id="timer">test</div>
 <canvas id="canvas"></canvas>
 
 <div id="play">Play ? &nbsp;&nbsp; Scan →</div>

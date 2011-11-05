@@ -7,6 +7,7 @@ function Player(engine, id) {
 	this.angle = 0;
 	this.radius = px2m(32);
 	this.force = new b2Vec2(0, 0);
+	this.label = null;
 	//this.oldForce = new b2Vec(0, 0);
 	this.isDead = false;
 	this.ballImg = new Image();
@@ -29,7 +30,8 @@ Player.prototype.update = function(state) {
 	this.y = state.y;
 	this.angle = state.angle;
 	
-	console.log(this.x,this.y,this.body.GetPosition().x);
+	//console.log(this.x,this.y,this.body.GetPosition().x);
+
 	
 	this.body.ApplyImpulse(new b2Vec2(
 		this.force.x, this.force.y), this.body.GetPosition());
@@ -65,7 +67,13 @@ Player.prototype.draw = function(ctx) {
 	
 	// Name
 	// TODO ctx.fillStyle
-	ctx.fillText(this.name, m2px(this.x), m2px(this.y));
+	//ctx.fillText(this.name, m2px(this.x), m2px(this.y));
+
+	if (!this.label) {
+		this.label = $("<div/>", { "text": "Aad!", "class": "playerLabel" });
+		$(document.body).append(this.label);
+	}
+	this.label.css({ "top": m2px(this.y), "left": m2px(this.x) })
 };
 
 
