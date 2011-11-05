@@ -82,10 +82,13 @@ function Gamepad() {
                 
 //init 
 this.renderButton(this.x, this.y);
+
 };
 
 Gamepad.prototype.onTouchStart = function(e){
-	e.preventDefault();
+	var bodyelem = $("body");
+	//bodyelem.scrollTop(25);
+	//e.preventDefault();
 };
 
 Gamepad.prototype.onTouchEnd = function(e){
@@ -117,7 +120,7 @@ Gamepad.prototype.onMove = function(e){
             y = Math.round(y * dPow);
         }
         
-        //utils.console.write('x:' + this.normalize(x) + ', y:' + this.normalize(y) + ', dist:' + distance  + ', dpower:' + dPow);
+        utils.console.write('x:' + this.normalize(x) + ', y:' + this.normalize(y) + ', dist:' + distance  + ', dpower:' + dPow);
         
         // nodejs trigger
         this.sendMove(this.normalize(x), this.normalize(y));
@@ -162,8 +165,9 @@ var gamepad = new Gamepad();
 
 
 
+var bodyelem = $("body");
+bodyelem.scrollTop(25);
 
-$("body").scrollTop(80);
 document.addEventListener("touchmove", function(e) {e.preventDefault()});
 
 

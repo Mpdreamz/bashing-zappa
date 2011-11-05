@@ -17,14 +17,13 @@
     		height:100%;
     	}
     	html {
-    		padding-bottom:80px;
     	}
     	body {
     		
     		background:url(/img/bg_control.png);
     		background-size:100% 100%;
     		background-position:0 0;
-    		margin-bottom:80px; /* hack to force bg */
+    		padding-bottom:200px; /* hack to force bg */
     	}
     	#container {
     		height:100%;
@@ -79,9 +78,7 @@
     </div>
 	<div id="button-container"></div>
 
-	<div id="debug">
-        <input type="text" id="playername">
-    </div>
+	<div id="debug"></div>
 
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/zappa/zappa.js"></script>
