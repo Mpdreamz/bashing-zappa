@@ -1,6 +1,5 @@
 function Game() {
 	Engine.call(this);
-	this.forceMultiplier = 50;
 }
 Game.prototype = new Engine();
 Game.prototype.constructor = Game;
@@ -29,7 +28,7 @@ Game.prototype.handleInput = function(event, data) {
 			break;
 		case 'move':
 			var player = this.entities[data.player];
-			player.force = new b2Vec2(data.x/this.forceMultiplier, data.y/this.forceMultiplier);
+			player.force = new b2Vec2(data.x, data.y);
 			//player.oldForce = player.force.Copy();
 			break;
 		default:
