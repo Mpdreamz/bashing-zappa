@@ -32,6 +32,12 @@ require("zappa") 8080, ->
 	# everything serving the player related resources
 	@include "./player/player.coffee"
 
+	# random name routine
+	@include "./shared/randomname.coffee"
+
+	@helper getRandomName: =>
+		@getName(3,8, null, null)
+
 	@get "/" : ->
 		redis_client = @redis_client();
 		redis_client.zrevrangebyscore "bashing::hosts", 100000000, 0, "WITHSCORES", (err, hosts) =>
