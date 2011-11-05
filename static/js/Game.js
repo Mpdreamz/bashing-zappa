@@ -22,23 +22,17 @@ Game.prototype.addPlayer = function(player) {
 	this.physics.addBody(player);
 };
 
-Game.prototype.movePlayer = function(id, dir) {
-	var entitiesCount = this.entities.length;
-	for (var i = 0; i < entitiesCount; i++) {
-		var player = this.entities[i];
-		if (player.id == id) {
-			player.requestedDir = dir;
-		}
-	}
-};
-
 Game.prototype.handleInput = function(event, data) {
 	switch(event) {
 		case 'join':
 			this.addPlayer(new Player(this, data.id));
 			break;
 		case 'move':
-			console.log('move TODO');
+			var player = this.entities[data.player];
+			player.force = new b2Vec2(data.x, data.y);
+			//player.oldForce = player.force.Copy();
+			//var player = this.physics.bodiesMap[data.player];
+			//player.ApplyImpulse(new b2Vec2(data.x, data.y), player.GetPosition());
 			break;
 		default:
 			console.warn('Unhandled event: ' + event);

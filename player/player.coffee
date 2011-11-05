@@ -10,12 +10,17 @@
 			title: "Gamepje"
 
 	@client "/play/js/socket.js" : ->
+		window.emitter = this;
 		@on connect: ->
 			@emit play: { name: GameHost.name }
+		@on host_died: ->
+			window.location =  "/error/host_died/" + GameHost.name
 		@connect();
-		$ =>
-			$("#gamepad").bind "move", (e, data) =>
-				#console.log(data);
-				@emit move: data
-			$("#sub").bind("click action", => @emit client_send: { text: $("#text").val() } )
+		#$ =>
+		#	#FIXME bind werkt niet goed op Android
+		#	$("#gamepad").bind "move", (e, data) =>
+		#		$('#debug').html('aap');
+		#		console.log(this);
+		#		@emit move: data
+		#	#$("#sub").bind("click action", => @emit client_send: { text: $("#text").val() } )
 

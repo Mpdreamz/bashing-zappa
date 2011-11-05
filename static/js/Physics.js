@@ -23,8 +23,8 @@ function Physics(intervalRate, adaptive, width, height, scale) {
 	this.bodiesMap = {};
 	
 	this.world = new b2World(
-		new b2Vec2(0, 5) // gravity
-		, true           // allow sleep
+		new b2Vec2(0, 0), // gravity
+		true              // allow sleep
 	);
 	
 	this.fixDef = new b2FixtureDef;
@@ -35,6 +35,7 @@ function Physics(intervalRate, adaptive, width, height, scale) {
 
 Physics.prototype.update = function() {
 	var start = Date.now();
+		
 	var stepRate = (this.adaptive) ? (now - this.lastTimestamp) / 1000 : (1 / this.intervalRate);
 	this.world.Step(
 		stepRate, // frame-rate
@@ -91,7 +92,8 @@ Physics.prototype.addBody = function(entity) {
 	var bodyDef = new b2BodyDef;
         
     bodyDef.type = b2Body.b2_dynamicBody;
-    
+    bodyDef.linearDamping = 1;
+    bodyDef.angularDamping = 1;
     bodyDef.position.x = entity.x;
     bodyDef.position.y = entity.y;
     bodyDef.userData = entity.id;
@@ -100,6 +102,7 @@ Physics.prototype.addBody = function(entity) {
     
     this.fixDef.shape = new b2CircleShape(entity.radius);
     body.CreateFixture(this.fixDef);
+    entity.body = body;
 }
 
 Physics.prototype.registerBody = function(bodyDef) {

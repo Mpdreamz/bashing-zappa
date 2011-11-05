@@ -1,9 +1,9 @@
 var mouseDown = false;
 var dpad = document.getElementById('gamepad');
 
-
 function sendMove(x,y) {
-	$('#gamepad').trigger('move', { x: x, y: y });
+	//$('#debug').html(emitter == null ? "nul": "nietnul");
+	emitter.emit('move', { x: x, y: y });
 }
 
 function handleEvent(e) {
