@@ -4,9 +4,80 @@
 }
 body {
 	font-family: "sans-serif";
-	background: url('/img/background-site.jpg') repeat-x top left;
+	background:#000;
 }
-h2 { 
+@font-face {
+    font-family: 'BadaBoomBBRegular';
+    src: url('/font/badabb__-webfont.eot');
+    src: url('/font/badabb__-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/font/badabb__-webfont.woff') format('woff'),
+         url('/font/badabb__-webfont.ttf') format('truetype'),
+         url('/font/badabb__-webfont.svg#BadaBoomBBRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+audio {
+	display:none;
+}
+
+@font-face {
+    font-family: 'PressStart2PRegular';
+    src: url('/font/pressstart2p-webfont.eot');
+    src: url('/font/pressstart2p-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/font/pressstart2p-webfont.woff') format('woff'),
+         url('/font/pressstart2p-webfont.ttf') format('truetype'),
+         url('/font/pressstart2p-webfont.svg#PressStart2PRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+header {
+	background-color:blue;
+	width:100%; height:109px;
+	background:url(/img/header_start_pagina.png) center center;
+	text-align:center;
+}
+header img {
+	position:absolute;
+}
+footer {
+	position:absolute;
+	bottom:0;
+	left:0;
+	height:100px;
+	width:100%;
+	text-align:center;
+}
+.howItWorks {
+	display:block;
+	position:absolute;
+	text-indent:-10000em;
+	background-image:url(/img/more_info.png);
+	width:452px; height:68px;
+}
+.startGame {
+	display:block;
+	position:absolute;
+	background-image:url(/img/button_start.png);
+	width:383px; height:135px;
+	text-indent:-10000em;
+}
+.howitworksbox {
+	font-family:PressStart2PRegular;
+	position:absolute;
+	display:none;
+	height:200px;
+	color:#fff;
+	width:100%;
+	bottom:0;
+	background-color:#ccc;
+	text-align:center;
+	line-height:30px;
+	padding-top:50px;
+}
+/*h2 { 
 	margin-bottom:10px;
 }
 div#site {
@@ -36,3 +107,4 @@ input {
     padding:4px;
 	border:1px solid #cccccc; 
 }
+*/

@@ -19,7 +19,7 @@ function Physics(intervalRate, adaptive, width, height, scale) {
 	this.width = width;
 	this.height = height;
 	this.scale = scale;
-
+	this.collisionAudioIndex = { crash_short: 0, crash_long: 0, laser: 0 };
 	this.bodiesMap = {};
 	
 	this.world = new b2World(
@@ -27,18 +27,42 @@ function Physics(intervalRate, adaptive, width, height, scale) {
 		true              // allow sleep
 	);
 	
+	var that = this;
 	var contactListener = new Box2D.Dynamics.b2ContactListener;
 	contactListener.BeginContact = function(contact, manifold) {
+		
+		
+
 		var fixA = contact.GetFixtureA();
 		var fixB = contact.GetFixtureB();
 		if (fixA.GetBody().GetType() == b2Body.b2_dynamicBody) {
-			fixA.SetDensity(fixA.GetDensity() * 0.95);
+			fixA.SetDensity(fixA.GetDensity() * 0.8); // 0.95
 			fixA.GetBody().ResetMassData();
+
+			var shortOrLong = Math.floor(Math.random() * 6);
+			console.log(shortOrLong);
+			if (shortOrLong == 0) {
+				that.collisionAudioIndex.crash_long++;
+				document.getElementById("crash_long" + (that.collisionAudioIndex.crash_long % 10)).play();
+			}
+			else {
+				that.collisionAudioIndex.crash_short++;
+				document.getElementById("crash_short" + (that.collisionAudioIndex.crash_short % 10)).play();
+			}
+
+			
 		}
 		if (fixB.GetBody().GetType() == b2Body.b2_dynamicBody) {
-			fixB.SetDensity(fixB.GetDensity() * 0.95);
+			fixB.SetDensity(fixB.GetDensity() * 0.8); // 0.95
 			fixB.GetBody().ResetMassData();
-		}	
+
+			that.collisionAudioIndex.laser++;
+			document.getElementById("laser" + (that.collisionAudioIndex.laser % 10)).play();
+		}
+		
+		
+		
+		
 		/*if(fixB.GetBody().GetType() == b2Body.b2_dynamicBody) { // Only dynamic bodies
 			var mass = fixB.GetBody().GetMass();
 			var newMassData = new b2MassData();
@@ -50,7 +74,7 @@ function Physics(intervalRate, adaptive, width, height, scale) {
 		
 	};
 	this.world.SetContactListener(contactListener);
-	
+
 	this.fixDef = new b2FixtureDef;
 	this.fixDef.density = 1.0;
 	this.fixDef.friction = 0.3;
