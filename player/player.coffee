@@ -14,8 +14,8 @@
 			@emit play: { name: GameHost.name }
 		@connect();
 		$ =>
-			$("#gamepad").bind "touchmoved", (e, data) =>
-				$("#button-container").append('x' + data.x + ',y' + data.y + '**>>');
+			$("#gamepad").bind "move", (e, data) =>
+				#console.log(data);
 				@emit move: data
 			$("#sub").bind("click action", => @emit client_send: { text: $("#text").val() } )
 

@@ -38,10 +38,11 @@
     		background-size:100% 100%;
     		margin-top:20px;
     		margin-left:20px;
+    		position: relative;
     	}
     	#gamepad-button {
-    		left:2px;
-    		top:2px;	
+    		left:50px;
+    		top:50px;	
     		background:black;
     		position:absolute;
     		width:80px;
@@ -82,60 +83,121 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/zappa/zappa.js"></script>
 	<script src="/js/jquery.min.js"></script>
-	<script src="/js/plugins/touchable.js"></script>
-	<script src="/play/js/socket.js" />
+
+	<script src="/play/js/socket.js"></script>
 	<script src="/js/gamepad/gamepad.js"></script>
 	<script>
-		var div = $("#gamepad").Touchable();
-		$("#gamepad-container").bind("mousemove", onGamepadMoved);
-		$("#gamepad-container").bind("touchmove", onGamepadMoved);
+/*
+ * Gamepad 
+ */		
+function Gamepad() {
+    
+    //constants
+    this.maxDistance = 60;
+    this.velocity = 150;
+    
+    this.x = 0;
+    this.y = 0;
+    this.touchStartX = 0;
+    this.touchEndX = 0;
+		
+    //this.touchable = $("#gamepad-container").Touchable();
+    this.gamepad = $("#gamepad");
+		this.centerX = this.gamepad.offset().left + Math.round(this.gamepad.width() / 2);
+		this.centerY = this.gamepad.offset().top + Math.round(this.gamepad.height() / 2);
 
-		function onGamepadMoved(e)
-		{
-			if (typeof e.pageX == 'undefined'){
-				return;
-			}
-			var gamepad = $("#gamepad");
-			var centerX = gamepad.offset().left + Math.round(gamepad.width() / 2);
-			var centerY = gamepad.offset().top + Math.round(gamepad.height() / 2);
+    this.button = $("#gamepad-button");
+		this.buttonCenterX = this.centerX - Math.round($(this.button).width() / 2);
+		this.buttonCenterY = this.centerY - Math.round($(this.button).height() / 2);
+		    
+    
+		//bindings
+	//	var _instance = this; // Yikes
+		//$("#gamepad-container").bind("mousemove", function(e) {_instance.onMove(e)}, false);
+		//$("#gamepad-container").bind("touchstart", function(e) {_instance.onTouchStart(e)}, false);
+		//$("#gamepad-container").bind("touchmove", function(e) {_instance.onMove(e)}, false);
+		
+		//init 
+		//this.renderButton(this.x, this.y);
+};
 
-			var x = e.pageX - centerX;
-			var y = e.pageY - centerY;
-			var d = distance(0, 0, x, y );
-			var maxDistance = 60;
-			if (d > maxDistance) {
-				var dPower = maxDistance / d;
-				x = Math.round(x * dPower);
-				y = Math.round(y * dPower);
-			}
+/*
+Gamepad.prototype.onTouchStart = function(e){
+    this.touchStartX = e.touches[0].pageX;
+    this.touchEndX = e.touches[0].pageY;
+    alert(this.touchStartX);
+};*/
 
-			$("#gamepad").trigger("touchmoved", [{ x: x, y: y }]);
-			
-			var console = $("#console");
-
-
-			
-
-			console.text('x:' + x + ', y:' + y + ', dist:' + d  + ', dpower:' + dPower);
-
-
-
-			//button positioning
-			var button = $("#gamepad-button");
-			var buttonX = x + centerX - Math.round($(button).width() / 2);
-			var buttonY = y + centerY - Math.round($(button).height() / 2);
-			button.css({left: buttonX + 'px', top: buttonY + 'px'});
-		}
-
-		function distance(x1, y1, x2, y2) {
-			return Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+Gamepad.prototype.onMove = function(e){
+    alert(e);
+    e.preventDefault();
+    var pageX, pageY;
+	  if(e.touches) {
+		  pageX = this.touchStartX + e.touches[0].pageX;
+		  pageY = this.touchStartY + e.touches[0].pageY;
+	  } 
+	  else {
+		  pageX = e.pageX
+		  pageY = e.pageY
+	  }
+	  var x = pageX - this.centerX;
+	  var y = pageY - this.centerY;
+	  
+		var distance = this.getDistance(0, 0, x, y);
+		
+		// maximum movement
+		if (distance > this.maxDistance) {
+			var dPow = this.maxDistance / distance;
+			x = Math.round(x * dPow);
+			y = Math.round(y * dPow);
 		}
 		
-		/*$('#gamepad').live('touchstart', function(e) {
-		  var xPos = e.originalEvent.touches[0].pageX;
-		  alert(xPos);
-		}
-		alert('');*/
+		Utils.console.write('x:' + this.toServer(x) + ', y:' + this.toServer(y) + ', dist:' + distance  + ', dpower:' + dPow);
+		
+		// nodejs trigger
+		$("#gamepad").trigger("touchmoved", [{ x: this.toServer(x), y: this.toServer(y) }]);
+		
+		this.renderButton(x, y);
+};
+
+Gamepad.prototype.toServer = function(num){
+    return Math.round(num * (this.velocity / this.maxDistance));
+}
+
+Gamepad.prototype.getDistance = function(x1, y1, x2, y2) {
+    return Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+};
+
+Gamepad.prototype.getMoreDistance = function(x1, y1, x2, y2) {
+    return Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+};
+
+Gamepad.prototype.renderButton = function(x, y) {
+		var buttonX = x + this.buttonCenterX;
+		var buttonY = y + this.buttonCenterY;
+		this.button.css({left: buttonX + 'px', top: buttonY + 'px'});
+};
+
+
+/*
+ * Console
+ */		
+function Console() {
+  this.output = $("#console"); 
+};
+
+Console.prototype.write = function(text){
+  this.output.text(text);
+}; 
+
+var Utils = {};
+Utils.console = new Console();
+var gamepad = new Gamepad();
+
+
+
+
+
 	</script>
   </body> 
 </html>
