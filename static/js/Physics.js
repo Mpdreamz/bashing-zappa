@@ -27,6 +27,27 @@ function Physics(intervalRate, adaptive, width, height, scale) {
 		true              // allow sleep
 	);
 	
+	var contactListener = new Box2D.Dynamics.b2ContactListener;
+	contactListener.BeginContact = function(contact, manifold) {
+		var fixA = contact.GetFixtureA();
+		var fixB = contact.GetFixtureB();
+		fixA.SetDensity(fixA.GetDensity() * 0.95);
+		fixA.GetBody().ResetMassData();
+		fixB.SetDensity(fixB.GetDensity() * 0.95);
+		fixB.GetBody().ResetMassData();
+		
+		/*if(fixB.GetBody().GetType() == b2Body.b2_dynamicBody) { // Only dynamic bodies
+			var mass = fixB.GetBody().GetMass();
+			var newMassData = new b2MassData();
+			newMassData.mass = mass * 1.1;
+			newMassData.center = new b2Vec2(0,0);
+			newMassData.I = 0;
+			fixA.GetBody().SetMassData(newMassData);
+		}*/
+		
+	};
+	this.world.SetContactListener(contactListener);
+	
 	this.fixDef = new b2FixtureDef;
 	this.fixDef.density = 1.0;
 	this.fixDef.friction = 0.3;
