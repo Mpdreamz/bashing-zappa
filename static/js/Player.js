@@ -35,7 +35,7 @@ Player.prototype.constructor = Player;
 
 Player.prototype.playSoundOfDeath = function() {
 	this.collisionAudioIndex++;
-	document.getElementById("death" + (that.collisionAudioIndex % 10)).play();	
+	document.getElementById("death" + (this.collisionAudioIndex % 10)).play();	
 }
 
 Player.prototype.update = function(state) {
@@ -49,6 +49,7 @@ Player.prototype.update = function(state) {
 		if (Date.now() - this.deadTime > 1000) {
 			// TODO remove from box2d
 			this.removeFromWorld = true;
+			
 		}
 		
 		return;
@@ -69,6 +70,8 @@ Player.prototype.update = function(state) {
 Player.prototype.draw = function(ctx) {
 	var timeDeath = Date.now() - this.deadTime;
 	if(this.deadTime != null && timeDeath < 1000) {
+		$("#p" + this.id).remove();
+		this.playSoundOfDeath();
 		var explosionImage = this.explosionImgs[1];
 		
 		if ((timeDeath > 200 && timeDeath < 400) || 
@@ -120,7 +123,7 @@ Player.prototype.draw = function(ctx) {
 	
 	// Name
 	if (!this.label) {
-		this.label = $("<div/>", { "text": this.playername, "class": "playerLabel" });
+		this.label = $("<div/>", { id: "p" + this.id, "text": this.playername, "class": "playerLabel" });
 		$(document.body).append(this.label);
 	}
 	this.label.css({ "top": enginePosY + 30, "left": enginePosX + 30 })
