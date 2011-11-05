@@ -1,3 +1,4 @@
+redis = require("redis")
 require("zappa") 8080, ->
 	#10.42.4.255
 	# bodyParser -- parses POSTS bodies (application/form or text/json)
@@ -12,9 +13,18 @@ require("zappa") 8080, ->
 	@register html: require('ejs')
 		
 	# helpers are available in both io and http handlers
+	redis_client = -> redis.createClient()
 	@helper redis_client: ->
-		redis = require("redis")
 		redis.createClient()
+	
+	redis_flush = ->
+		redis_client = redis_client();
+		redis_client.flushall (err) ->
+			console.log "flushed redis"
+			redis_client.quit()
+	
+	# make sure we start clean as a whistle
+	redis_flush()
 
 	# everything serving the host related resources
 	@include "./host/host.coffee"
