@@ -38,11 +38,10 @@ Player.prototype.update = function(state) {
 };
 
 Player.prototype.draw = function(ctx) {
-	var forceMultiplier = 20;
 	// Cable
 	ctx.beginPath();
 	ctx.moveTo(m2px(this.x), m2px(this.y));
-	ctx.lineTo(m2px(this.x) + this.force.x * forceMultiplier, m2px(this.y) + this.force.y * forceMultiplier);
+	ctx.lineTo(m2px(this.x) + this.force.x * this.engine.forceMultiplier, m2px(this.y) + this.force.y * this.engine.forceMultiplier);
 	ctx.stroke();
 	
 	ctx.save();
@@ -54,7 +53,7 @@ Player.prototype.draw = function(ctx) {
 	ctx.rotate(-this.angle);
 
 	// Engine
-	ctx.translate(this.force.x * forceMultiplier, this.force.y * forceMultiplier);
+	ctx.translate(this.force.x * this.engine.forceMultiplier, this.force.y * this.engine.forceMultiplier);
 //	if (f.y == 0 && f.x == 0) {
 	//	ctx.rotate(Math.atan2(oldForce.y, oldForce.x));
 //	} else {

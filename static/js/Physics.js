@@ -120,8 +120,8 @@ Physics.prototype.addBody = function(entity) {
 	var bodyDef = new b2BodyDef;
         
     bodyDef.type = b2Body.b2_dynamicBody;
-    bodyDef.linearDamping = 0.9;
-    bodyDef.angularDamping = 0.9;
+    bodyDef.linearDamping = 1.5;
+    bodyDef.angularDamping = 1.5;
     bodyDef.position.x = entity.x;
     bodyDef.position.y = entity.y;
     bodyDef.userData = entity.id;
