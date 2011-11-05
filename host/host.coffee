@@ -5,17 +5,17 @@
 
 	@get "/host/:name" : ->
 		redis_client = @redis_client()
-		redis_client.zrank "bashing::hosts", @params.name, (err, count) =>
-			redis_client.quit()
-			console.log "/host/game hit " + count
+		name = @params.name
+		redis_client.zrank "bashing::hosts", name, (err, count) =>
 			console.log err if err
-			if count == null
+			return redis_client.quit() and @redirect("/error/host_in_use/" + name) if count != null
+			redis_client.zadd "bashing::hosts", 0, name, (err) =>
+				return redis_client.quit() and @redirect("/error/general_error/" + name) if err
 				@render "/host/host.html",
 					layout: false,
 					title: "Gamepje",
-					name: @params.name,
+					name: name,
 					scripts: ["/host/js/socket.js"]
-			else @redirect "/error/host_in_use/" + @params.name
 
 	@post "/game/create" : ->
 		@redirect "/host/" + @body.name

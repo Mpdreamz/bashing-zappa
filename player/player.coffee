@@ -4,10 +4,13 @@
 	@include "player/player.io.coffee"
 
 	@get "/play/:name" : ->
-		@render "/player/player.html", 
-			layout: false, 
-			name: @params.name,
-			title: "Gamepje"
+		redis_client = @redis_client();
+		redis_client.zscore "bashing::hosts", @params.name, (err, onlineplayers) =>
+			return redis_client.quit() && @redirect("/error/host_not_found/" + @params.name) if onlineplayers == null
+			@render "/player/player.html", 
+				layout: false, 
+				name: @params.name,
+				title: "Gamepje"
 
 	@client "/play/js/socket.js" : ->
 		window.emitter = this;
