@@ -22,7 +22,8 @@
 			window.location =  "/error/host_not_found/" + GameHost.name
 		@on joined: ->
 			$ =>
-				$("#playername").val(@data.playername)
+				$("#player-information").css("background", "url(/img/units/unit#{@data.id % 21}.png) top left no-repeat")
+				$("#player-information").append(@data.playername)
 		@connect();
 		#$ =>
 		#	#FIXME bind werkt niet goed op Android

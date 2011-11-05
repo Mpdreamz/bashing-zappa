@@ -40,12 +40,14 @@ require("zappa") 8080, ->
 
 	@get "/" : ->
 		redis_client = @redis_client();
-		redis_client.zrevrangebyscore "bashing::hosts", 100000000, 0, "WITHSCORES", (err, hosts) =>
-			redis_client.quit()
-			console.log err if err
-			@render "/shared/index.html", 
-				foo: "bar", 
-				hosts: hosts or []
-				title: "Index!"
+		redis_client.zrevrangebyscore "bashing::hosts", 100000000, -1, "WITHSCORES", (err, hosts) =>
+			redis_client.get "bashing::online.players", (err, onlineplayers) =>
+				redis_client.quit()
+				console.log err if err
+				@render "/shared/index.html", 
+					foo: "bar", 
+					hosts: hosts or [],
+					onlineplayers: onlineplayers or 0,
+					title: "Index!"
 
 

@@ -103,7 +103,7 @@ Gamepad.prototype.onMove = function(e){
           if(e.touches) {
                   pageX = e.touches[0].pageX;
                   pageY = e.touches[0].pageY;
-          } 
+          }
           else {
                   pageX = e.pageX
                   pageY = e.pageY
