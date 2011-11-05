@@ -85,11 +85,11 @@ Physics.prototype.getBodySpec = function(b) {
 	return {
 		x: b.GetPosition().x,
 		y: b.GetPosition().y,
-		a: b.GetAngle(),
-		c: {
-			x: b.GetWorldCenter().x,
-			y: b.GetWorldCenter().y
-		}
+		angle: b.GetAngle(),
+		//c: {
+		//	x: b.GetWorldCenter().x,
+		//	y: b.GetWorldCenter().y
+		//}
 	};
 }
 

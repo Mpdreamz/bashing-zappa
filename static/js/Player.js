@@ -3,7 +3,7 @@ function Player(engine, id) {
 	this.id = id;
 	this.x = 100;
 	this.y = 100;
-	this.angle = 2;
+	this.angle = 0;
 	this.radius = 30;
 	this.force = new b2Vec2(0, 0);
 	//this.oldForce = new b2Vec(0, 0);
@@ -43,7 +43,10 @@ Player.prototype.draw = function(ctx) {
 	ctx.save();
 	ctx.translate(this.x , this.y);
 
+	ctx.rotate(this.angle);
 	ctx.drawImage(this.ballImg, - (this.ballImg.width /2), - (this.ballImg.height /2) , this.ballImg.width, this.ballImg.height);
+	ctx.rotate(-this.angle);
+	//console.log(this.angle);
 
 	ctx.translate(this.force.x * 1.2, this.force.y * 1.2);
 
