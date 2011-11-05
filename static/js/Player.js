@@ -64,7 +64,6 @@ Player.prototype.draw = function(ctx) {
 	else if(density < 0.4) ballImg = this.ballImgs[4];
 	else if(density < 0.6) ballImg = this.ballImgs[3];
 	else if(density < 0.8) ballImg = this.ballImgs[2];
-	console.log(density);
 	ctx.drawImage(ballImg, - (ballImg.width /2), - (ballImg.height /2) , ballImg.width, ballImg.height);
 	ctx.rotate(-this.angle);
 

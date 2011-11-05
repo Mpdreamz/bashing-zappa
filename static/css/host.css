@@ -8,6 +8,7 @@ body {
 	background-image: url(/img/background2.jpg);
 	/* background-size: 100%; */
 	background-size: cover;
+	overflow: hidden;
 }
 
 #explanation {
