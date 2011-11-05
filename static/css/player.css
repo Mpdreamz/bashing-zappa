@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'BadaBoomBBRegular';
+    src: url('/font/badabb__-webfont.eot');
+    src: url('/font/badabb__-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/font/badabb__-webfont.woff') format('woff'),
+         url('/font/badabb__-webfont.ttf') format('truetype'),
+         url('/font/badabb__-webfont.svg#BadaBoomBBRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'PressStart2PRegular';
+    src: url('/font/pressstart2p-webfont.eot');
+    src: url('/font/pressstart2p-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/font/pressstart2p-webfont.woff') format('woff'),
+         url('/font/pressstart2p-webfont.ttf') format('truetype'),
+         url('/font/pressstart2p-webfont.svg#PressStart2PRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#player-information {
+    font-size:15px;
+    color:#fff;
+    font-family:PressStart2PRegular;
+
+    position:absolute;
+    left:200px;
+    top:20px;
+    width:200px;
+    height:200px;
+    padding-left:80px;
+    padding-top:20px;
+}

@@ -3,6 +3,7 @@
 <head>
   	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" media="all" href="/css/player.css">
     <title>Bashing: <%= title %></title>
 	<script>
 	window.GameHost = { name: '<%= name %>' }
@@ -70,15 +71,17 @@
     		height:20px;
     		position:absolute;
     	}
+        
     </style>
 </head>
 <body>
+    <div id="player-information"></div>
 	<div id="gamepad-container">
 		<div id="gamepad"><div id="gamepad-button"></div></div>
     </div>
 	<div id="button-container"></div>
 
-	<div id="debug"></div>
+	
 
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/zappa/zappa.js"></script>
