@@ -72,6 +72,9 @@ function Gamepad() {
     this.button = $("#gamepad-button");
     this.buttonCenterX = this.centerX - Math.round($(this.button).width() / 2);
     this.buttonCenterY = this.centerY - Math.round($(this.button).height() / 2);
+    
+    this.engine = $("#engine");
+    
                 //bindings
                 
 	var _instance = this; // Yikes
@@ -98,6 +101,9 @@ Gamepad.prototype.onTouchEnd = function(e){
 };
 
 Gamepad.prototype.onMove = function(e){
+	//this.engine.volume = 0.0;
+	//alert(window.audioElement);
+	
     e.preventDefault();
     var pageX, pageY;
           if(e.touches) {

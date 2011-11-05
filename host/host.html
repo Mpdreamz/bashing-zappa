@@ -44,6 +44,34 @@ window.GameHost = { name: '<%= name %>' }
 </script>
 <script src="/host/js/socket.js"></script>
 
+
+<audio id="soundloop" controls="controls" autoplay="true" preload="true" loop="true">
+  <source src="/audio/Music_loop.mp3" type="audio/mp3" />
+  <source src="/audio/Music_loop.ogg" type="audio/ogg" />
+</audio>
+<script>
+	document.getElementById("soundloop").volume = 0.3;
+</script>
+
+<% for (var i=0; i < 10; i++) { %>
+<audio id="crash_short<%= i %>" controls="controls" preload="true">
+  <source src="/audio/crash_short.mp3" type="audio/mp3" />
+  <source src="/audio/crash_short.ogg" type="audio/ogg" />
+</audio>
+<audio id="crash_long<%= i %>" controls="controls" preload="true">
+  <source src="/audio/crash_long.mp3" type="audio/mp3" />
+  <source src="/audio/crash_long.ogg" type="audio/ogg" />
+</audio>
+<audio id="laser<%= i %>" controls="controls" preload="true">
+  <source src="/audio/laser.mp3" type="audio/mp3" />
+  <source src="/audio/laser.ogg" type="audio/ogg" />
+</audio>
+<audio id="death<%= i %>" controls="controls" preload="true">
+  <source src="/audio/Death.mp3" type="audio/mp3" />
+  <source src="/audio/Death.ogg" type="audio/ogg" />
+</audio>
+<% } %>
+
 </body> 
 </html>
 

@@ -7,6 +7,7 @@ function Player(engine, id, playername) {
 	this.radius = px2m(32);
 	this.force = new b2Vec2(0, 0);
 	this.playername = playername;
+	this.collisionAudioIndex = 0;
 	this.label = null;
 	//this.oldForce = new b2Vec(0, 0);
 	this.deadTime = null;
@@ -31,6 +32,11 @@ function Player(engine, id, playername) {
 }
 Player.prototype = new Entity();
 Player.prototype.constructor = Player;
+
+Player.prototype.playSoundOfDeath = function() {
+	this.collisionAudioIndex++;
+	document.getElementById("death" + (that.collisionAudioIndex % 10)).play();	
+}
 
 Player.prototype.update = function(state) {
 	var density = this.body.GetFixtureList().GetDensity();

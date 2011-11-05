@@ -17,7 +17,6 @@
   <body>
   	<div id="site">
 	  	<header>
-		<img src="/img/header_start_pagina.png" alt=""/>
 	  	</header>
 		<article>
 			<a href="/" class="startGame">Start game</a>
@@ -42,7 +41,6 @@
 	<%}%>
 	<script>
 	function reposStartscreen() {
-		$("header img").css("left", -(($("header img").width() - $(window).width()) / 2));
 		$(".startGame").css({ "top": ($(window).height() / 2) - ($(".startGame").height() / 2), left: ($(window).width() / 2) - ($(".startGame").width() / 2) });
 		$(".howItWorks").css({ "left": ($(window).width() / 2) - ($(".howItWorks").width() / 2) });
 	}
@@ -60,6 +58,11 @@
 		window.location.href = "/host/game" + Math.floor(Math.random() * 10000);
 	})
 	</script>
+	<audio controls="controls" autoplay="true" preload="true" loop="true">
+	  <source src="/audio/Lavaflow.mp3" type="audio/mp3" />
+	  <source src="/audio/Lavaflow.ogg" type="audio/ogg" />
+	</audio>
+
   </body> 
 </html>
 
