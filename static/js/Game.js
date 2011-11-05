@@ -55,8 +55,9 @@ Game.prototype.handleInput = function(event, data) {
 			break;
 		case 'move':
 			var player = this.entities[data.player];
-			player.force = new b2Vec2(data.x, data.y);
-			//player.oldForce = player.force.Copy();
+			if (player != null) {
+				player.force = new b2Vec2(data.x, data.y);
+			}
 			break;
 		default:
 			console.warn('Unhandled event: ' + event);

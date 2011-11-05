@@ -34,9 +34,17 @@ Player.prototype.constructor = Player;
 
 Player.prototype.update = function(state) {
 	var density = this.body.GetFixtureList().GetDensity();
-	if(density < 0.1 && this.deadTime == null) {
-		// TODO remove from box2d
-		this.deadTime = Date.now();
+	
+	if(density < 0.1) {
+		if (this.deadTime == null) {
+			this.deadTime = Date.now();
+		}
+		
+		if (Date.now() - this.deadTime > 1000) {
+			// TODO remove from box2d
+			this.removeFromWorld = true;
+		}
+		
 		return;
 	}
 	

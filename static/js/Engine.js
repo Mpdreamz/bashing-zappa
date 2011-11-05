@@ -45,7 +45,7 @@ Engine.prototype.update = function() {
 	this.physics.update();
 	
 	var bodiesState = this.physics.getState();
-
+	var entitiesToRemove = new Array();
 	for(var e in this.entities) {
 		if (!this.entities.hasOwnProperty(e))
 			continue;
@@ -53,16 +53,18 @@ Engine.prototype.update = function() {
 		var entity = this.entities[e];
 		if (!entity.removeFromWorld) {
 			entity.update(bodiesState[e]);
+		} else {
+			entitiesToRemove.push(this.entities[e]);
+			console.log(entitiesToRemove);
 		}
 	}
 
-	/*
-	for (var i = this.entities.length-1; i >= 0; --i) {
-		if (this.entities[i].removeFromWorld) {
-			this.entities.splice(i, 1);
-		}
+	for(var i = 0; i < entitiesToRemove.length; i++) {
+		var entity = entitiesToRemove[i];
+		entitiesToRemove[i].body.SetActive(false);
+		this.physics.world.DestroyBody(entity.body);
+		delete this.entities[entity.id];
 	}
-	*/
 };
 
 Engine.prototype.loop = function() {
