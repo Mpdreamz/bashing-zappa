@@ -1,8 +1,8 @@
 function Player(engine, id, playername) {
 	Entity.call(this, engine);
 	this.id = id;
-	this.x = 3;
-	this.y = 3;
+	this.x = px2m(100 + Math.random() * engine.ctx.canvas.width - 200);
+	this.y = px2m(100 + Math.random() * engine.ctx.canvas.height - 200);
 	this.angle = 0;
 	this.radius = px2m(32);
 	this.force = new b2Vec2(0, 0);
