@@ -103,7 +103,7 @@ Gamepad.prototype.onMove = function(e){
           if(e.touches) {
                   pageX = e.touches[0].pageX;
                   pageY = e.touches[0].pageY;
-          } 
+          }
           else {
                   pageX = e.pageX
                   pageY = e.pageY
@@ -120,7 +120,7 @@ Gamepad.prototype.onMove = function(e){
             y = Math.round(y * dPow);
         }
         
-        utils.console.write('x:' + this.normalize(x) + ', y:' + this.normalize(y) + ', dist:' + distance  + ', dpower:' + dPow);
+        //utils.console.write('x:' + this.normalize(x) + ', y:' + this.normalize(y) + ', dist:' + distance  + ', dpower:' + dPow);
         
         // nodejs trigger
         this.sendMove(this.normalize(x), this.normalize(y));
