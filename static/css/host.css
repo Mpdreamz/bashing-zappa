@@ -10,6 +10,9 @@ body {
 	background-size: cover;
 	overflow: hidden;
 }
+audio {
+	display:none;
+}
 
 #explanation {
 	position: absolute;

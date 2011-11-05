@@ -18,6 +18,10 @@ body {
 
 }
 
+audio {
+	display:none;
+}
+
 @font-face {
     font-family: 'PressStart2PRegular';
     src: url('/font/pressstart2p-webfont.eot');
@@ -31,7 +35,8 @@ body {
 }
 header {
 	background-color:blue;
-	width:100%;
+	width:100%; height:109px;
+	background:url(/img/header_start_pagina.png) center center;
 	text-align:center;
 }
 header img {
