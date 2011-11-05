@@ -1,7 +1,6 @@
 function Player(engine, id, playername) {
 	Entity.call(this, engine);
 	this.id = id;
-	this.name = id; // TODO
 	this.x = 3;
 	this.y = 3;
 	this.angle = 0;
@@ -16,9 +15,12 @@ function Player(engine, id, playername) {
 		this.ballImgs[i] = new Image();
 		this.ballImgs[i].src = '/img/units/wreckingball'+i+'.png'
 	}
-	this.engineImg = new Image();
-	this.engineImg.src = '/img/units/unit1.png';
-
+	this.engineImgs = [];
+	for (var i = 0; i < 20; i++) {
+		this.engineImgs[i] = new Image();
+		this.engineImgs[i].src = '/img/units/unit'+(i+1)+'.png';
+	}
+	this.engineImg = this.engineImgs[this.id % 20];
 }
 Player.prototype = new Entity();
 Player.prototype.constructor = Player;
@@ -36,9 +38,11 @@ Player.prototype.update = function(state) {
 	this.angle = state.angle;
 	
 	
-
-	this.body.ApplyForce(new b2Vec2(
-		this.force.x, this.force.y), this.body.GetPosition());
+	var density = this.body.GetFixtureList().GetDensity();
+	this.body.ApplyForce(
+		new b2Vec2(	this.force.x * density, this.force.y * density),
+					this.body.GetPosition()
+	);
 	
 	Entity.prototype.update.call(this);
 };
@@ -75,15 +79,11 @@ Player.prototype.draw = function(ctx) {
 		ctx.rotate(Math.atan2(this.force.y, this.force.x));
 	//}
 	
-	
 	ctx.drawImage(this.engineImg, - (this.engineImg.width /2), - (this.engineImg.height /2) , this.engineImg.width, this.engineImg.height);
 
 	ctx.restore();
 	
 	// Name
-	// TODO ctx.fillStyle
-	//ctx.fillText(this.name, m2px(this.x), m2px(this.y));
-
 	if (!this.label) {
 		this.label = $("<div/>", { "text": this.playername, "class": "playerLabel" });
 		$(document.body).append(this.label);
