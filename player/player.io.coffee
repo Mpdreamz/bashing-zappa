@@ -6,7 +6,9 @@
 			return console.log(err) and redis_client.quit() if err
 			return redis_client.quit() && @emit("host_not_found") if onlineplayers == null
 			@socket.set("host", @data.name, => console.log "join for #{@data.name} received")
+			playername = @getRandomName()
 			@socket.set("type", "player")
+			@socket.set("playername", playername)
 			redis_client.multi([
 				["incr", "bashing::player.serial"],
 				["zincrby", "bashing::hosts", 1, @data.name],
@@ -16,7 +18,8 @@
 				console.log err if err
 				@socket.set("playerId", id, => console.log "player #{id} saved")
 				@socket.join(@data.name)
-				@io.sockets.in(@data.name + ".host").emit "join", { id: id }
+				@io.sockets.in(@data.name + ".host").emit "join", { id: id, playername: playername }
+				@emit joined: { id: id, playername: playername }
 				redis_client.quit()
 	
 	@on move: ->

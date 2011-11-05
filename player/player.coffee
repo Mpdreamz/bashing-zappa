@@ -20,6 +20,9 @@
 			window.location =  "/error/host_died/" + GameHost.name
 		@on host_not_found: ->
 			window.location =  "/error/host_not_found/" + GameHost.name
+		@on joined: ->
+			$ =>
+				$("#playername").val(@data.playername)
 		@connect();
 		#$ =>
 		#	#FIXME bind werkt niet goed op Android
