@@ -21,16 +21,107 @@
     font-style: normal;
 }
 
+* {
+	margin:0;
+	padding:0;
+}
+html, body {
+	width:100%;
+	height:100%;
+}
+html {
+}
+body {
+	background:url(/img/bg_control.png);
+	background-size:100% 100%;
+	background-position:0 0;
+	padding-bottom:200px; /* hack to force bg */
+}
+#container {
+	height:100%;
+	
+}
+#gamepad-container {
+	float:left;
+	height:100%;
+	width:60%;
+	display:block;
+	
+}
+#gamepad {
+	width:180px;
+	height:180px;	
+	background:url(/img/joystick_socket.png);
+	background-size:100% 100%;
+	margin-top:110px;
+	margin-left:20px;
+}
+#gamepad-button {
+	left:50px;
+	top:50px;	
+	background:black;
+	position:absolute;
+	width:80px;
+	height:80px;
+	background:url(/img/joystick.png);
+	background-size:100% 100%;
+}
+#button-container {
+	float:left;
+	height:100%;
+	width:40%;
+	display:block;
+	display:none;
+}
+#debug {
+	background:black;
+	color:white;
+	font-family:"monospace";
+	bottom:0;
+	width:100%;
+	height:20px;
+	position:absolute;
+	display:none;
+}
+
+#pinup {
+	width:183px;
+	height:193px;
+	background:url(/img/pinup.png) no-repeat;
+	position:absolute;
+	right:40px;
+	top:90px;
+}
+#action-button {
+	width:85px;
+	height:91px;
+	background:url(/img/button.png) no-repeat;
+	opacity:0.8;
+	position:absolute;
+	right:25px;
+	top:190px;
+}
+#action-button:hover,
+#action-button:focus {
+	opacity:1;
+}
+
 #player-information {
     font-size:15px;
     color:#fff;
     font-family:PressStart2PRegular;
-
     position:absolute;
-    left:200px;
-    top:20px;
+    left:120px;
+    top:40px;
     width:200px;
-    height:200px;
+    height:40px;
     padding-left:80px;
     padding-top:20px;
+}
+
+#engine {
+	position:absolute;
+	left:100px;
+	top:100px;
+	z-index:10;
 }
