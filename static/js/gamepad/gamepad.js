@@ -152,10 +152,14 @@ Gamepad.prototype.sendMove = function(x, y) {
     //$('#debug').html(emitter == null ? "nul": "nietnul");
 	emitter.emit('move', { x: x, y: y });
 };
+Gamepad.prototype.sendRespawn = function(x, y) {
+    //$('#debug').html(emitter == null ? "nul": "nietnul");
+	emitter.emit('respawn', { x: x, y: y });
+};
 
 /*
  * Console
- */             
+ */
 function Console() {
   this.output = $("#debug"); 
 };

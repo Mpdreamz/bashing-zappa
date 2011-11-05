@@ -30,5 +30,7 @@
 			game.handleInput 'join', @data
 		@on move: ->
 			game.handleInput 'move', @data
+		@on respawn: ->
+			game.handleInput 'respawn', @data
 		@connect();
 

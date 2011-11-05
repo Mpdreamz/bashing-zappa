@@ -27,5 +27,10 @@
 		@socket.get "host", (err, host) =>
 			@socket.get "playerId", (err, id) =>
 				@io.sockets.in(host + ".host").emit "move", { x: @data.x, y: @data.y, player: id }
-
+	
+	@on respawn: ->
+		#console.log(1);
+		@socket.get "host", (err, host) =>
+			@socket.get "playerId", (err, id) =>
+				@io.sockets.in(host + ".host").emit "respawn", { player: id }
 
