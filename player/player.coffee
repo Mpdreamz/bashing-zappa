@@ -22,7 +22,7 @@
 			window.location =  "/error/host_not_found/" + GameHost.name
 		@on joined: ->
 			$ =>
-				$("#player-information").css("background", "url(/img/units/unit#{@data.id % 21}.png) top left no-repeat")
+				$("#player-information").css("background", "url(/img/units/unit#{@data.id % 20}.png) top left no-repeat")
 				$("#player-information").append(@data.playername)
 		@connect();
 		#$ =>
