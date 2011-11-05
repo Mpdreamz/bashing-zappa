@@ -19,9 +19,8 @@ audio {
 	bottom: 35px;
 	right: 110px;
 	color: white;
-	font-size: 18px;
-	font-weight: bold;
-	font-family: 'Arial';
+	font-size: 24px;
+	font-family: BadaBoomBBRegular;
 	/*text-shadow: 0 0 .2em #000;*/
 	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
