@@ -42,7 +42,7 @@
     		height:180px;	
     		background:url(/img/joystick_socket.png);
     		background-size:100% 100%;
-    		margin-top:50px;
+    		margin-top:80px;
     		margin-left:20px;
     	}
     	#gamepad-button {
@@ -71,7 +71,28 @@
     		height:20px;
     		position:absolute;
     	}
-        
+   	
+    	#pinup {
+    		width:183px;
+    		height:193px;
+    		background:url(/img/pinup.png) no-repeat;
+    		position:absolute;
+    		right:100px;
+    		top:60px;
+    	}
+    	#action-button {
+    		width:85px;
+    		height:91px;
+    		background:url(/img/button.png) no-repeat;
+    		opacity:0.8;
+    		position:absolute;
+    		right:50px;
+    		top:160px;
+    	}
+    	#action-button:hover,
+    	#action-button:focus {
+    		opacity:1;
+    	}
     </style>
 </head>
 <body>
@@ -80,9 +101,9 @@
 		<div id="gamepad"><div id="gamepad-button"></div></div>
     </div>
 	<div id="button-container"></div>
-
-	
-
+	<div id="pinup"></div>
+	<div id="action-button"></div>
+	<div id="debug"></div>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/zappa/zappa.js"></script>
 	<script src="http://code.jquery.com/jquery-1.7.min.js"></script>

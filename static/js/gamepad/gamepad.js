@@ -87,8 +87,8 @@ this.renderButton(this.x, this.y);
 
 Gamepad.prototype.onTouchStart = function(e){
 	var bodyelem = $("body");
-	//bodyelem.scrollTop(25);
-	//e.preventDefault();
+	bodyelem.scrollTop(25);
+	e.preventDefault();
 };
 
 Gamepad.prototype.onTouchEnd = function(e){
