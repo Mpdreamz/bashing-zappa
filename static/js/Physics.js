@@ -32,11 +32,11 @@ function Physics(intervalRate, adaptive, width, height, scale) {
 		var fixA = contact.GetFixtureA();
 		var fixB = contact.GetFixtureB();
 		if (fixA.GetBody().GetType() == b2Body.b2_dynamicBody) {
-			fixA.SetDensity(fixA.GetDensity() * 0.95);
+			fixA.SetDensity(fixA.GetDensity() * 0.8); // 0.95
 			fixA.GetBody().ResetMassData();
 		}
 		if (fixB.GetBody().GetType() == b2Body.b2_dynamicBody) {
-			fixB.SetDensity(fixB.GetDensity() * 0.95);
+			fixB.SetDensity(fixB.GetDensity() * 0.8); // 0.95
 			fixB.GetBody().ResetMassData();
 		}	
 		/*if(fixB.GetBody().GetType() == b2Body.b2_dynamicBody) { // Only dynamic bodies
