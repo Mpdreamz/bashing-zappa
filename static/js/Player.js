@@ -9,10 +9,14 @@ function Player(engine, id) {
 	this.force = new b2Vec2(0, 0);
 	//this.oldForce = new b2Vec(0, 0);
 	this.isDead = false;
-	this.ballImg = new Image();
-	this.ballImg.src = '/img/units/wreckingball1.png';
+	this.ballImgs = [];
+	for (var i = 1; i <= 5; i++) {
+		this.ballImgs[i] = new Image();
+		this.ballImgs[i].src = '/img/units/wreckingball'+i+'.png'
+	}
 	this.engineImg = new Image();
 	this.engineImg.src = '/img/units/unit1.png';
+
 }
 Player.prototype = new Entity();
 Player.prototype.constructor = Player;
@@ -49,7 +53,14 @@ Player.prototype.draw = function(ctx) {
 
 	// Ball
 	ctx.rotate(this.angle);
-	ctx.drawImage(this.ballImg, - (this.ballImg.width /2), - (this.ballImg.height /2) , this.ballImg.width, this.ballImg.height);
+	var density = this.body.GetFixtureList().GetDensity();
+	var ballImg = this.ballImgs[1];
+	if(density < 0.2) ballImg = this.ballImgs[5];
+	else if(density < 0.4) ballImg = this.ballImgs[4];
+	else if(density < 0.6) ballImg = this.ballImgs[3];
+	else if(density < 0.8) ballImg = this.ballImgs[2];
+	console.log(density);
+	ctx.drawImage(ballImg, - (ballImg.width /2), - (ballImg.height /2) , ballImg.width, ballImg.height);
 	ctx.rotate(-this.angle);
 
 	// Engine
