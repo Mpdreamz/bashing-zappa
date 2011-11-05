@@ -7,10 +7,14 @@ sudo apt-get install nodejs
 
 curl http://npmjs.org/install.sh | sudo sh
 
+sudo add-apt-repository ppa:rwky/redis
+sudo apt-get update
 sudo apt-get install redis-server
 
 npm install
 ```
+
+
 
 #run
 ```
