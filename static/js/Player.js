@@ -1,10 +1,11 @@
 function Player(engine, id) {
 	Entity.call(this, engine);
 	this.id = id;
-	this.x = 100;
-	this.y = 100;
+	this.name = id; // TODO
+	this.x = 3;
+	this.y = 3;
 	this.angle = 0;
-	this.radius = 30;
+	this.radius = px2m(32);
 	this.force = new b2Vec2(0, 0);
 	//this.oldForce = new b2Vec(0, 0);
 	this.isDead = false;
@@ -28,37 +29,43 @@ Player.prototype.update = function(state) {
 	this.y = state.y;
 	this.angle = state.angle;
 	
+	console.log(this.x,this.y,this.body.GetPosition().x);
+	
 	this.body.ApplyImpulse(new b2Vec2(
-		this.force.x * 1000, this.force.y * 1000), this.body.GetPosition());
+		this.force.x, this.force.y), this.body.GetPosition());
 	
 	Entity.prototype.update.call(this);
 };
 
 Player.prototype.draw = function(ctx) {
+	// Cable
 	ctx.beginPath();
-	ctx.moveTo(this.x, this.y);
-	ctx.lineTo(this.x + this.force.x, this.y + this.force.y);
+	ctx.moveTo(m2px(this.x), m2px(this.y));
+	ctx.lineTo(m2px(this.x) + this.force.x * this.engine.forceMultiplier, m2px(this.y) + this.force.y * this.engine.forceMultiplier);
 	ctx.stroke();
 	
 	ctx.save();
-	ctx.translate(this.x , this.y);
+	ctx.translate(m2px(this.x), m2px(this.y));
 
+	// Ball
 	ctx.rotate(this.angle);
 	ctx.drawImage(this.ballImg, - (this.ballImg.width /2), - (this.ballImg.height /2) , this.ballImg.width, this.ballImg.height);
 	ctx.rotate(-this.angle);
-	//console.log(this.angle);
 
-	ctx.translate(this.force.x * 1.2, this.force.y * 1.2);
-
+	// Engine
+	ctx.translate(this.force.x * this.engine.forceMultiplier, this.force.y * this.engine.forceMultiplier);
 //	if (f.y == 0 && f.x == 0) {
 	//	ctx.rotate(Math.atan2(oldForce.y, oldForce.x));
 //	} else {
 		ctx.rotate(Math.atan2(this.force.y, this.force.x));
 	//}
-
 	ctx.drawImage(this.engineImg, - (this.engineImg.width /2), - (this.engineImg.height /2) , this.engineImg.width, this.engineImg.height);
 
 	ctx.restore();
+	
+	// Name
+	// TODO ctx.fillStyle
+	ctx.fillText(this.name, m2px(this.x), m2px(this.y));
 };
 
 

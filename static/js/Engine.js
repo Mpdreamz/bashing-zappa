@@ -4,6 +4,7 @@ function Engine() {
 	this.timer = new Timer();
 	this.stats = new Stats();
 	this.physics = null;
+	this.SCALE = 30;
 }
 
 Engine.prototype.init = function(ctx) {
@@ -12,7 +13,7 @@ Engine.prototype.init = function(ctx) {
 	this.stats.domElement.style.left = '0px';
 	this.stats.domElement.style.top = '0px';
 	document.body.appendChild(this.stats.domElement);
-	this.physics = new Physics(60, false, this.ctx.canvas.width, this.ctx.canvas.height, 30);
+	this.physics = new Physics(60, false, this.ctx.canvas.width, this.ctx.canvas.height, this.SCALE);
 	
 	this.physics.setBounds(this.ctx.canvas.width, this.ctx.canvas.height);
 	this.physics.setBodies(this.entities);

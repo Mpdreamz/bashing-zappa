@@ -29,8 +29,8 @@ function Physics(intervalRate, adaptive, width, height, scale) {
 	
 	this.fixDef = new b2FixtureDef;
 	this.fixDef.density = 1.0;
-	//this.fixDef.friction = 0.5;
-	//this.fixDef.restitution = 0.2;
+	this.fixDef.friction = 0.3;
+	this.fixDef.restitution = 0.5;
 }
 
 Physics.prototype.setBounds = function(width, height) {
@@ -40,21 +40,21 @@ Physics.prototype.setBounds = function(width, height) {
     this.fixDef.shape = new b2PolygonShape;
 
 	// Bovensten rand: hele breedte, 4px hoog
-    this.fixDef.shape.SetAsBox(width / 2, 2);
-    bodyDef.position.Set(width / 2, 2);
+    this.fixDef.shape.SetAsBox(px2m(width) / 2, px2m(2));
+    bodyDef.position.Set(px2m(width) / 2, px2m(2));
     this.world.CreateBody(bodyDef).CreateFixture(this.fixDef);
 
 	// Onderste rand: hele breedte, 4px hoog
-    bodyDef.position.Set(width / 2, height - 2);
+    bodyDef.position.Set(px2m(width) / 2, px2m(height - 2));
     this.world.CreateBody(bodyDef).CreateFixture(this.fixDef);
 
 	// Linker rand, hele hoogte, 4px breed
-    this.fixDef.shape.SetAsBox(2, height / 2);
-    bodyDef.position.Set(2, height / 2);
+    this.fixDef.shape.SetAsBox(px2m(2), px2m(height) / 2);
+    bodyDef.position.Set(px2m(2), px2m(height) / 2);
     this.world.CreateBody(bodyDef).CreateFixture(this.fixDef);
 	
 	// Rechter rand, hele hoogte, 4px breed         
-    bodyDef.position.Set(width - 2, height / 2);
+    bodyDef.position.Set(px2m(width - 2), px2m(height) / 2);
     this.world.CreateBody(bodyDef).CreateFixture(this.fixDef);
 };
 
@@ -94,6 +94,7 @@ Physics.prototype.getBodySpec = function(b) {
 }
 
 Physics.prototype.setBodies = function(bodyEntities) {
+    /*
     var bodyDef = new b2BodyDef;
     
     for(var id in bodyEntities) {
@@ -110,6 +111,8 @@ Physics.prototype.setBodies = function(bodyEntities) {
         this.fixDef.shape = new b2CircleShape(entity.radius);
         body.CreateFixture(this.fixDef);
     }
+    */
+    
     this.ready = true;
 };
 
@@ -117,8 +120,8 @@ Physics.prototype.addBody = function(entity) {
 	var bodyDef = new b2BodyDef;
         
     bodyDef.type = b2Body.b2_dynamicBody;
-    bodyDef.linearDamping = 1;
-    bodyDef.angularDamping = 1;
+    bodyDef.linearDamping = 1.5;
+    bodyDef.angularDamping = 1.5;
     bodyDef.position.x = entity.x;
     bodyDef.position.y = entity.y;
     bodyDef.userData = entity.id;
