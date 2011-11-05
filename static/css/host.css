@@ -28,6 +28,14 @@ body {
 	bottom: 0;
 }
 
+#timer {
+	position:absolute;
+	font-family:BadaBoomBBRegular;
+	letter-spacing:3px;
+	margin-top:20px;
+	font-size:50px;
+}
+
 @font-face {
     font-family: 'BadaBoomBBRegular';
     src: url('/font/badabb__-webfont.eot');
@@ -52,13 +60,6 @@ body {
 
 }
 
-#timer {
-	position:absolute;
-	font-family:BadaBoomBBRegular;
-	letter-spacing:3px;
-	margin-top:20px;
-	font-size:50px;
-}
 .playerLabel {
 	position:absolute;
 	font-size:15px;
