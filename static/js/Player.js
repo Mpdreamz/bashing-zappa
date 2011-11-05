@@ -1,4 +1,4 @@
-function Player(engine, id) {
+function Player(engine, id, playername) {
 	Entity.call(this, engine);
 	this.id = id;
 	this.name = id; // TODO
@@ -7,6 +7,8 @@ function Player(engine, id) {
 	this.angle = 0;
 	this.radius = px2m(32);
 	this.force = new b2Vec2(0, 0);
+	this.playername = playername;
+	this.label = null;
 	//this.oldForce = new b2Vec(0, 0);
 	this.isDead = false;
 	this.ballImgs = [];
@@ -33,7 +35,8 @@ Player.prototype.update = function(state) {
 	this.y = state.y;
 	this.angle = state.angle;
 	
-	//this.body.ApplyImpulse(new b2Vec2(
+	
+
 	this.body.ApplyForce(new b2Vec2(
 		this.force.x, this.force.y), this.body.GetPosition());
 	
@@ -45,7 +48,9 @@ Player.prototype.draw = function(ctx) {
 	// Cable
 	ctx.beginPath();
 	ctx.moveTo(m2px(this.x), m2px(this.y));
-	ctx.lineTo(m2px(this.x) + this.force.x * forceMultiplier, m2px(this.y) + this.force.y * forceMultiplier);
+	var enginePosX = m2px(this.x) + this.force.x * forceMultiplier;
+	var enginePosY = m2px(this.y) + this.force.y * forceMultiplier;
+	ctx.lineTo(enginePosX, enginePosY);
 	ctx.stroke();
 	
 	ctx.save();
@@ -70,13 +75,21 @@ Player.prototype.draw = function(ctx) {
 //	} else {
 		ctx.rotate(Math.atan2(this.force.y, this.force.x));
 	//}
+	
+	
 	ctx.drawImage(this.engineImg, - (this.engineImg.width /2), - (this.engineImg.height /2) , this.engineImg.width, this.engineImg.height);
 
 	ctx.restore();
 	
 	// Name
 	// TODO ctx.fillStyle
-	ctx.fillText(this.name, m2px(this.x), m2px(this.y));
+	//ctx.fillText(this.name, m2px(this.x), m2px(this.y));
+
+	if (!this.label) {
+		this.label = $("<div/>", { "text": this.playername, "class": "playerLabel" });
+		$(document.body).append(this.label);
+	}
+	this.label.css({ "top": enginePosY + 30, "left": enginePosX + 30 })
 };
 
 
