@@ -29,9 +29,34 @@ function Physics(intervalRate, adaptive, width, height, scale) {
 	
 	this.fixDef = new b2FixtureDef;
 	this.fixDef.density = 1.0;
-	//this.fixDef.friction = 0.5;
+	this.fixDef.friction = 1.0;
 	//this.fixDef.restitution = 0.2;
 }
+
+Physics.prototype.setBounds = function(width, height) {
+	//create ground
+	var bodyDef = new b2BodyDef;
+    bodyDef.type = b2Body.b2_staticBody;
+    this.fixDef.shape = new b2PolygonShape;
+
+	// Bovensten rand: hele breedte, 4px hoog
+    this.fixDef.shape.SetAsBox(width / 2, 2);
+    bodyDef.position.Set(width / 2, 2);
+    this.world.CreateBody(bodyDef).CreateFixture(this.fixDef);
+
+	// Onderste rand: hele breedte, 4px hoog
+    bodyDef.position.Set(width / 2, height - 2);
+    this.world.CreateBody(bodyDef).CreateFixture(this.fixDef);
+
+	// Linker rand, hele hoogte, 4px breed
+    this.fixDef.shape.SetAsBox(2, height / 2);
+    bodyDef.position.Set(2, height / 2);
+    this.world.CreateBody(bodyDef).CreateFixture(this.fixDef);
+	
+	// Rechter rand, hele hoogte, 4px breed         
+    bodyDef.position.Set(width - 2, height / 2);
+    this.world.CreateBody(bodyDef).CreateFixture(this.fixDef);
+};
 
 Physics.prototype.update = function() {
 	var start = Date.now();

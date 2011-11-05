@@ -29,7 +29,7 @@ require("zappa") 8080, ->
 			console.log err if err
 			@render "/shared/index.html", 
 				foo: "bar", 
-				hosts: hosts
+				hosts: hosts or []
 				title: "Index!"
 
 

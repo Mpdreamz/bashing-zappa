@@ -16,6 +16,7 @@ Engine.prototype.init = function(ctx) {
 	
 	//this.addEntity(new Player(this, 0));
 	
+	this.physics.setBounds(this.ctx.canvas.width, this.ctx.canvas.height);
 	this.physics.setBodies(this.entities);
 };
 

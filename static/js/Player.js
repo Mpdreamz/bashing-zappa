@@ -28,7 +28,7 @@ Player.prototype.update = function(state) {
 	this.y = state.y;
 	this.angle = state.angle;
 	
-	this.body.ApplyImpulse(new b2Vec2(this.force.x * 1000, this.force.y * 1000), this.body.GetPosition());
+	this.body.ApplyImpulse(new b2Vec2(this.force.x * 10000, this.force.y * 10000), this.body.GetPosition());
 	
 	Entity.prototype.update.call(this);
 };
