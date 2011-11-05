@@ -28,7 +28,6 @@
 <script src="/js/Game.js"></script>
 <script>
 var qrsrc = 'http://chart.googleapis.com/chart?chs=96x96&cht=qr&chld=M|0&chl=';
-//qrsrc += encodeURIComponent(window.location.href.substring(0, window.location.href.length - "view.html".length));
 qrsrc += encodeURIComponent('http://' + window.location.host + '/play/<%= name %>');
 document.getElementById('qr').innerHTML = '<img id="qr" src="'+qrsrc+'" />';
 

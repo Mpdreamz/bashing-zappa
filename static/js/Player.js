@@ -17,18 +17,19 @@ Player.prototype = new Entity();
 Player.prototype.constructor = Player;
 
 Player.prototype.update = function(state) {
-	if(this.isDead) {
-		// TODO animation?
-		this.removeFromWorld = true;
-		Entity.prototype.update.call(this);
-		return;
-	}
+	//if(this.isDead) {
+	//	// TODO animation?
+	//	this.removeFromWorld = true;
+	//	Entity.prototype.update.call(this);
+	//	return;
+	//}
 	
 	this.x = state.x;
 	this.y = state.y;
 	this.angle = state.angle;
 	
-	this.body.ApplyImpulse(new b2Vec2(this.force.x * 10000, this.force.y * 10000), this.body.GetPosition());
+	this.body.ApplyImpulse(new b2Vec2(
+		this.force.x * 1000, this.force.y * 1000), this.body.GetPosition());
 	
 	Entity.prototype.update.call(this);
 };
@@ -39,10 +40,6 @@ Player.prototype.draw = function(ctx) {
 	ctx.lineTo(this.x + this.force.x, this.y + this.force.y);
 	ctx.stroke();
 	
-	/*
-	ctx.drawImage(this.ballImg, this.x - 32, this.y - 32);
-	ctx.drawImage(this.engineImg, this.x - 13, this.y + 40);
-*/
 	ctx.save();
 	ctx.translate(this.x , this.y);
 
