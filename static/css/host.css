@@ -2,13 +2,18 @@
 	margin: 0;
 	padding: 0;
 }
-
+html, body {
+	height:100%;
+}
 body {
 	background-color: #000;
-	background-image: url(/img/Arena2.png);
-	/* background-size: 100%; */
-	background-size: cover;
 	overflow: hidden;
+}
+canvas {
+	position:absolute;
+	top:0; left:0; 
+	background-image: url(/img/Arena2.png);
+	background-size: 100% 100%;
 }
 audio {
 	display:none;

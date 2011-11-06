@@ -8,7 +8,10 @@
 		name = @params.name
 		redis_client.zrank "bashing::hosts", name, (err, count) =>
 			console.log err if err
-			return redis_client.quit() and @redirect("/error/host_in_use/" + name) if count != null
+			if count != null
+				redis_client.quit()
+				@render "/host/host_still_in_use.html" , 
+					layout: false
 			redis_client.zadd "bashing::hosts", 0, name, (err) =>
 				return redis_client.quit() and @redirect("/error/general_error/" + name) if err
 				@render "/host/host.html",
@@ -33,4 +36,7 @@
 		@on respawn: ->
 			game.handleInput 'respawn', @data
 		@connect();
+		$ =>
+			$(window).unload ->
+				
 
