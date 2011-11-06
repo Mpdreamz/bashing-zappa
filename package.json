@@ -1,11 +1,15 @@
 {
 	"name": "bashing-zappa",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"description": "A w00tcamp game",
 	"contributors": [
+		{ "name": "Anton Vanhoucke" },
+		{ "name": "Arian van Gend" },
 		{ "name": "Christiaan Hees" },
+		{ "name": "Kamil Afsar" },
+		{ "name": "Mark Dibbets" },
 		{ "name": "Martijn Laarman" },
-		{ "name": "Arian van Gend" }
+		{ "name": "Sander van Houdt" }
 	],
 	"dependencies": {
 		"zappa": "0.3.x",
