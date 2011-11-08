@@ -20,13 +20,15 @@
 				@socket.join(@data.name)
 				@io.sockets.in(@data.name + ".host").emit "join", { id: id, playername: playername }
 				@emit joined: { id: id, playername: playername }
+				console.log "id #{id} joined"
 				redis_client.quit()
 	
 	@on move: ->
-		#console.log(1);
+		
 		@socket.get "host", (err, host) =>
 			@socket.get "playerId", (err, id) =>
-				@io.sockets.in(host + ".host").emit "move", { x: @data.x, y: @data.y, player: id }
+				console.log("x: #{@data.x}, y: #{@data.y}, player: #{id} ");
+				@io.sockets.in(host + ".host").emit "move", { x: @data.x, y: @data.y, player: @data.id or id }
 	
 	@on respawn: ->
 		#console.log(1);
