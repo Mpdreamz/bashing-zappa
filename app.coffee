@@ -1,6 +1,8 @@
 redis = require("redis")
-require("zappa") 8080, ->
-	#10.42.4.255
+require("zappa") 4444, ->
+	@io.configure 'production', () =>
+		@io.set 'log level', 2
+	
 	# bodyParser -- parses POSTS bodies (application/form or text/json)
 	# @app.router -- todo: what does this instruct exactly ?
 	# static -- instructs express to serve files in that folder as statics
