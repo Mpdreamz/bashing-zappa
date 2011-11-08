@@ -42,11 +42,12 @@ Player.prototype.update = function(state) {
 	var density = this.body.GetFixtureList().GetDensity();
 	
 	if(density < 0.1) {
-		if (this.deadTime == null) {
+	    if (this.deadTime == null) {
+	        this.isDead = true;
 			this.deadTime = Date.now();
 		}
 		
-		if (Date.now() - this.deadTime > 1000) {
+		if (Date.now() - this.deadTime > 1000 && this.isDead == false) {
 			// TODO remove from box2d
 			this.removeFromWorld = true;
 			
@@ -85,6 +86,8 @@ Player.prototype.draw = function(ctx) {
 			m2px(this.x) - (explosionImage.width /2),
 			m2px(this.y) - (explosionImage.height /2));
 	} else {
+	    if (this.isDead) return;
+	    
 		var forceMultiplier = 1;
 		// Cable
 		ctx.beginPath();

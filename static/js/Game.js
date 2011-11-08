@@ -44,8 +44,30 @@ Game.prototype.update = function() {
 };
 
 Game.prototype.addPlayer = function(player) {
+    console.log(player, this.entities[player.id], typeof(player.id));
 	this.entities[player.id] = player;
+	console.log(this.entities[player.id]);
 	this.physics.addBody(player);
+};
+
+Game.prototype.respawnPlayer = function(playerId) {
+    console.log(playerId, this.entities);
+    for (entityId in this.entities) {
+        console.log(this.entities[entityId]);
+	    if (this.entities[entityId].isDead) {
+	        console.log('undeading the player for respawn');
+        	this.entities[entityId].isDead = false;
+        	this.entities[entityId].body.GetFixtureList().SetDensity(1);
+        	//this.entities[entityId].body.ApplyForce(new b2Vec2(0,0));
+        	this.entities[entityId].body.SetPosition(new b2Vec2(200/30,
+	200/30));
+	        this.entities[entityId].x = 200/30;
+	        this.entities[entityId].y = 200/30;
+	        console.log(this.entities[entityId]);
+	        this.physics.addBody(this.entities[entityId].body);
+	        
+        }
+    }
 };
 
 Game.prototype.handleInput = function(event, data) {
@@ -59,6 +81,10 @@ Game.prototype.handleInput = function(event, data) {
 				player.force = new b2Vec2(data.x, data.y);
 			}
 			break;
+		case 'respawn':
+		    console.log('respawn requested for player id #',data.player);
+		    this.respawnPlayer(data.player);
+		    break;
 		default:
 			console.warn('Unhandled event: ' + event);
 	}
