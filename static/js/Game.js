@@ -49,19 +49,12 @@ Game.prototype.addPlayer = function(player) {
 };
 
 Game.prototype.respawnPlayer = function(playerId) {
-    console.log(playerId, this.entities);
     for (entityId in this.entities) {
-        console.log(this.entities[entityId]);
 	    if (this.entities[entityId].isDead) {
 	        console.log('undeading the player for respawn');
 	        var player = new Player(this, entityId, this.entities[entityId].name);
-	        console.log(player);
-	        player.x = 20;
-	        player.y = 20;
 	        this.physics.addBody(player);
 	        this.entities[playerId] = player;
-	        console.log(this.entities[playerId]);
-	        
         }
     }
 };

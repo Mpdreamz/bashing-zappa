@@ -47,8 +47,9 @@ Player.prototype.update = function(state) {
 			this.deadTime = Date.now();
 		}
 		
-		if (Date.now() - this.deadTime > 1000 && this.isDead == false) {
+		if (Date.now() - this.deadTime > 1000 && this.isDead == true) {
 			// TODO remove from box2d
+			console.log('Removing player from physics');
 			this.removeFromWorld = true;
 			
 		}

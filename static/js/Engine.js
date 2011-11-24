@@ -69,7 +69,6 @@ Engine.prototype.update = function() {
 			entity.update(bodiesState[e]);
 		} else {
 			entitiesToRemove.push(this.entities[e]);
-			console.log(entitiesToRemove);
 		}
 	}
 
@@ -77,7 +76,7 @@ Engine.prototype.update = function() {
 		var entity = entitiesToRemove[i];
 		entitiesToRemove[i].body.SetActive(false);
 		this.physics.world.DestroyBody(entity.body);
-		delete this.entities[entity.id];
+		//delete this.entities[entity.id];
 	}
 };
 
