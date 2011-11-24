@@ -17,6 +17,20 @@ Engine.prototype.init = function(ctx) {
 	
 	this.physics.setBounds(this.ctx.canvas.width, this.ctx.canvas.height);
 	this.physics.setBodies(this.entities);
+	this.initSoundHandler();
+};
+
+Engine.prototype.initSoundHandler = function() {
+	document.onkeypress = function(e) {
+		if(e.keyCode == 109) { // m key
+			var soundloop = document.getElementById('soundloop');
+			if(soundloop.paused) {
+				soundloop.play();
+			} else {
+				soundloop.pause();
+			}
+		}
+	}
 };
 
 Engine.prototype.start = function() {
