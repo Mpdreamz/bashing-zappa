@@ -24,10 +24,9 @@
 				redis_client.quit()
 	
 	@on move: ->
-		
 		@socket.get "host", (err, host) =>
 			@socket.get "playerId", (err, id) =>
-				console.log("x: #{@data.x}, y: #{@data.y}, player: #{id} ");
+				#console.log("x: #{@data.x}, y: #{@data.y}, player: #{id} ");
 				@io.sockets.in(host + ".host").emit "move", { x: @data.x, y: @data.y, player: @data.id or id }
 	
 	@on respawn: ->

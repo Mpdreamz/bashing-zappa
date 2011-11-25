@@ -1,5 +1,7 @@
 redis = require("redis")
 require("zappa") 8080, ->
+	@io.set 'log level', 2
+	
 	@io.configure 'production', () =>
 		@io.set 'log level', 2
 	
