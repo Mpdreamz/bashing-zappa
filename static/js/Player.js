@@ -9,7 +9,6 @@ function Player(engine, id, playername) {
 	this.playername = playername;
 	this.collisionAudioIndex = 0;
 	this.label = null;
-	//this.oldForce = new b2Vec(0, 0);
 	this.deadTime = null;
 	this.ballImgs = [];
 	for (var i = 1; i <= 5; i++) {
@@ -62,8 +61,10 @@ Player.prototype.update = function(state) {
 	this.angle = state.angle;
 
 	this.body.ApplyForce(
-		new b2Vec2(	this.force.x * density, this.force.y * density),
-					this.body.GetPosition()
+		new b2Vec2(
+			5 * this.force.x * density,
+			5 * this.force.y * density),
+		this.body.GetPosition()
 	);
 	
 	Entity.prototype.update.call(this);
@@ -114,11 +115,7 @@ Player.prototype.draw = function(ctx) {
 
 		// Engine
 		ctx.translate(this.force.x * forceMultiplier, this.force.y * forceMultiplier);
-	//	if (f.y == 0 && f.x == 0) {
-		//	ctx.rotate(Math.atan2(oldForce.y, oldForce.x));
-	//	} else {
-			ctx.rotate(Math.atan2(this.force.y, this.force.x));
-		//}
+		ctx.rotate(Math.atan2(this.force.y, this.force.x));
 	
 		ctx.drawImage(this.engineImg, - (this.engineImg.width /2), - (this.engineImg.height /2) , this.engineImg.width, this.engineImg.height);
 

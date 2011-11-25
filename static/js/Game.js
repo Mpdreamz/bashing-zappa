@@ -2,7 +2,6 @@ var GAME_DURATION = 3 * 60 * 1000;
 
 function Game() {
 	Engine.call(this);
-	this.forceMultiplier = 50;
 	this.starttime = null;
 }
 Game.prototype = new Engine();

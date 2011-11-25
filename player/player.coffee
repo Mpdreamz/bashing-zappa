@@ -10,7 +10,6 @@
 			@render "/player/player.html", 
 				layout: false, 
 				name: @params.name,
-				title: "Gamepje"
 	
 	@get "/mayhem/:name" : ->
 		@render mayhem:
