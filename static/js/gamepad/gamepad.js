@@ -104,26 +104,19 @@ Gamepad.prototype.sendRespawn = function() {
     emitter.emit('respawn', {});
 };
 
-/*
- * Console
- */
-function Console() {
-  this.output = $("#debug");
-};
 
-Console.prototype.write = function(text){
-  this.output.text(text);
-};
-
-var utils = {};
-utils.console = new Console();
 var gamepad = new Gamepad();
 
 
 
 
-var bodyelem = $("body");
-bodyelem.scrollTop(25);
+//var bodyelem = $("body");
+//bodyelem.scrollTop(25);
+addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+
+function hideURLbar(){
+	window.scrollTo(0,1);
+}
 
 document.addEventListener("touchmove", function(e) {e.preventDefault()});
 

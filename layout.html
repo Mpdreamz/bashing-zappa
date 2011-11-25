@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<meta charset="utf-8" />
+    <title>Beuken: <%= title %></title>
+
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" media="all" href="/css/layout.css">
+
+    <script>
+    document.createElement("header");
+    document.createElement("article");
+    document.createElement("footer");
+    document.createElement("section");
+    </script>
+  </head>
+  <body>
+  	<div id="site">
+	  	<header>
+	  	</header>
+		<article>
+			<a href="/" class="startGame">Start game</a>
+		</article>
+		<footer>
+			<a href="#" class="howItWorks">Hoe werkt het</a>
+		</footer>
+		<div class="howitworksbox">
+			<ul>
+				<li>1. Beuk iedereen zo hard mogelijk</li>
+				<li>2. Raak de randen niet aan</li>
+				<li>3. Win!</li>
+			</ul>
+		</div>
+	</div>
+	
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/zappa/zappa.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+	<% for (var s in locals.scripts ) { %>
+		<script src="<%= scripts[s] %>"></script>
+	<%}%>
+	<script>
+	function reposStartscreen() {
+		$(".startGame").css({ "top": ($(window).height() / 2) - ($(".startGame").height() / 2), left: ($(window).width() / 2) - ($(".startGame").width() / 2) });
+		$(".howItWorks").css({ "left": ($(window).width() / 2) - ($(".howItWorks").width() / 2) });
+	}
+	reposStartscreen();
+	$(window).resize(reposStartscreen);
+
+	$(".howItWorks").click(function(e) {
+		e.preventDefault();
+		$(this).parent().animate({ "bottom": $(".howitworksbox").height() + 50 }, function() { $(".howitworksbox").fadeIn(); });
+		
+	});
+
+	$(".startGame").click(function(e) {
+		e.preventDefault();
+		window.location.href = "/host/game" + Math.floor(Math.random() * 10000);
+	})
+	</script>
+	<audio controls="controls" autoplay="true" preload="true" loop="true">
+	  <source src="/audio/Lavaflow.mp3" type="audio/mp3" />
+	  <source src="/audio/Lavaflow.ogg" type="audio/ogg" />
+	</audio>
+
+  </body> 
+</html>
+

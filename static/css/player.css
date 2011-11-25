@@ -29,17 +29,11 @@ html, body {
 	width:100%;
 	height:100%;
 }
-html {
-}
 body {
 	background:url(/img/bg_control.png);
-	background-size:100% 100%;
-	background-position:0 0;
-	padding-bottom:200px; /* hack to force bg */
 }
 #container {
 	height:100%;
-	
 }
 #gamepad-container {
 	float:left;
@@ -53,7 +47,7 @@ body {
 	height:180px;	
 	background:url(/img/joystick_socket.png);
 	background-size:100% 100%;
-	margin-top:110px;
+	margin-top:60px;
 	margin-left:20px;
 }
 #gamepad-button {
@@ -73,33 +67,26 @@ body {
 	display:block;
 	display:none;
 }
-#debug {
-	background:black;
-	color:white;
-	font-family:"monospace";
-	bottom:0;
-	width:100%;
-	height:20px;
-	position:absolute;
-	display:none;
+
+@media screen and (min-width: 400px)
+{
+	#pinup {
+		width:183px;
+		height:193px;
+		background:url(/img/pinup.png) no-repeat;
+		position:absolute;
+		right:40px;
+		top:40px;
+	}
 }
 
-#pinup {
-	width:183px;
-	height:193px;
-	background:url(/img/pinup.png) no-repeat;
-	position:absolute;
-	right:40px;
-	top:90px;
-}
 #action-button {
 	width:85px;
 	height:91px;
 	background:url(/img/button.png) no-repeat;
-	opacity:0.8;
 	position:absolute;
 	right:25px;
-	top:190px;
+	top:140px;
 }
 #action-button:hover,
 #action-button:focus {
@@ -111,8 +98,8 @@ body {
     color:#fff;
     font-family:PressStart2PRegular;
     position:absolute;
-    left:120px;
-    top:40px;
+    left:20px;
+    top:5px;
     width:200px;
     height:40px;
     padding-left:80px;
@@ -125,3 +112,16 @@ body {
 	top:100px;
 	z-index:10;
 }
+
+
+#debug {
+	background:black;
+	color:white;
+	font-family:"monospace";
+	bottom:0;
+	width:100%;
+	height:20px;
+	position:absolute;
+	display:none;
+}
+

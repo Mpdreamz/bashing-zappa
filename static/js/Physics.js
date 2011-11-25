@@ -30,9 +30,6 @@ function Physics(intervalRate, adaptive, width, height, scale) {
 	var that = this;
 	var contactListener = new Box2D.Dynamics.b2ContactListener;
 	contactListener.BeginContact = function(contact, manifold) {
-		
-		
-
 		var fixA = contact.GetFixtureA();
 		var fixB = contact.GetFixtureB();
 		if (fixA.GetBody().GetType() == b2Body.b2_dynamicBody) {
@@ -133,11 +130,7 @@ Physics.prototype.getBodySpec = function(b) {
 	return {
 		x: b.GetPosition().x,
 		y: b.GetPosition().y,
-		angle: b.GetAngle(),
-		//c: {
-		//	x: b.GetWorldCenter().x,
-		//	y: b.GetWorldCenter().y
-		//}
+		angle: b.GetAngle()
 	};
 }
 

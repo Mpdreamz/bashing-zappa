@@ -3,10 +3,10 @@
 <head>
   	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
-    <link rel="stylesheet" media="all" href="/css/player.css">
+    <link rel="stylesheet" href="/css/player.css">
     <title>Bashing: <%= title %></title>
 	<script>
-	window.GameHost = { name: '<%= name %>' }
+		window.GameHost = { name: '<%= name %>' }
 	</script>
 </head>
 <body>
@@ -17,8 +17,6 @@
 	<div id="button-container"></div>
 	<div id="pinup"></div>
 	<div id="action-button"></div>
-	<div id="debug"></div> 
-
 	
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/zappa/zappa.js"></script>
@@ -26,23 +24,6 @@
 
 	<script src="/play/js/socket.js"></script>
 	<script src="/js/gamepad/gamepad.js"></script>
-	<script>
-	/*
-	var audioElement = document.createElement('audio');
-	audioElement.setAttribute('id','engine');
-	audioElement.setAttribute('autoplay');
-	
-	audioElement.setAttribute('src', '/img/rocketengine.ogg');
-	audioElement.load();
-	audioElement.addEventListener("load", function() {
-	  audioElement.play();
-	  //audioElement.volume = 0;
-	  //alert(audioElement.volume);
-	  audioElement.volume = 0.001;
-	  alert(audioElement.volume);
-	  
-	}, true);*/
-	</script>
 </body> 
 </html>
 
