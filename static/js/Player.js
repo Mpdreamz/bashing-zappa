@@ -6,6 +6,7 @@ function Player(engine, id, playername) {
 	this.angle = 0;
 	this.radius = px2m(32);
 	this.force = new b2Vec2(0, 0);
+	this.forceSize = engine.ctx.canvas.height / 200;
 	this.playername = playername;
 	this.collisionAudioIndex = 0;
 	this.label = null;
@@ -50,7 +51,6 @@ Player.prototype.update = function(state) {
 			// TODO remove from box2d
 			console.log('Removing player from physics');
 			this.removeFromWorld = true;
-			
 		}
 		
 		return;
@@ -62,8 +62,8 @@ Player.prototype.update = function(state) {
 
 	this.body.ApplyForce(
 		new b2Vec2(
-			5 * this.force.x * density,
-			5 * this.force.y * density),
+			this.forceSize * this.force.x * density,
+			this.forceSize * this.force.y * density),
 		this.body.GetPosition()
 	);
 	
@@ -97,6 +97,7 @@ Player.prototype.draw = function(ctx) {
 		var enginePosX = m2px(this.x) + this.force.x * forceMultiplier;
 		var enginePosY = m2px(this.y) + this.force.y * forceMultiplier;
 		ctx.lineTo(enginePosX, enginePosY);
+		ctx.lineWidth = 2;
 		ctx.stroke();
 	
 		ctx.save();

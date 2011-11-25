@@ -26,9 +26,9 @@ function Gamepad() {
     document.getElementById('gamepad-container').addEventListener('mousemove', function(e) {
     	_instance.onMove(e);
     }, false);
-    //document.getElementById('gamepad-container').addEventListener('touchstart', function(e) {
-    //	_instance.onTouchStart(e);
-    //}, false);
+    document.getElementById('gamepad-container').addEventListener('touchstart', function(e) {
+    	_instance.onTouchStart(e);
+    }, false);
     document.getElementById('gamepad-container').addEventListener('touchmove', function(e) {
     	_instance.onMove(e);
     }, false);
@@ -40,24 +40,22 @@ function Gamepad() {
 		gamepad.sendRespawn();
 	});
 	
-	addEventListener('load', function() {
+	document.addEventListener('load', function() {
 		window.scrollTo(0,1);
 	}, false);
 
-	addEventListener('touchmove', function(e) {
+	document.addEventListener('touchmove', function(e) {
 		e.preventDefault()
 	}, false);
 
 	this.renderButton(this.x, this.y);
 };
 
-/*
 Gamepad.prototype.onTouchStart = function(e) {
     //var bodyelem = $('body');
     //bodyelem.scrollTop(25);
     e.preventDefault();
 };
-*/
 
 Gamepad.prototype.onTouchEnd = function(e) {
     e.preventDefault();
