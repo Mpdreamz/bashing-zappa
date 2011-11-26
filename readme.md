@@ -1,4 +1,7 @@
-# install 
+#Installing
+
+## Install on Ubuntu
+
 Install nvm:
 https://github.com/creationix/nvm
 
@@ -15,8 +18,33 @@ cd bashing-zappa
 npm install
 ```
 
+##Install Windows
+Download and install the latest nodejs msi installer from (nodejs.org)[http://nodejs.org/]
+
+Make sure nodejs is in your PATH 
+
+Download and install the latest redis for windows from https://github.com/dmajkic/redis/downloads
+
+Download CoffeeScript: http://github.com/jashkenas/coffee-script/tarball/master and unzip it to somehwere.
+Create coffee.cmd somewhere available to PATH (I just placed it next to node.exe):
+
+```
+@echo off
+"%PROGRAMFILES%/Node/node.exe" "PATH_TO_COFFEE_SCRIPT/bin/coffee" %*
+```
+
+Install npm modules the game needs
+
+```
+cd bashing-zappa
+npm install
+```
+
 #run
+Make sure redis is running. On ubuntu it'll probably have autostarted.
+
 ```
 npm start
 ```
+
 
