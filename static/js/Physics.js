@@ -32,30 +32,64 @@ function Physics(intervalRate, adaptive, width, height, scale) {
 	contactListener.BeginContact = function(contact, manifold) {
 		var fixA = contact.GetFixtureA();
 		var fixB = contact.GetFixtureB();
-		if (fixA.GetBody().GetType() == b2Body.b2_dynamicBody) {
-			fixA.SetDensity(fixA.GetDensity() * 0.8); // 0.95
-			fixA.GetBody().ResetMassData();
-
-			var shortOrLong = Math.floor(Math.random() * 6);
-			console.log(shortOrLong);
-			if (shortOrLong == 0) {
-				that.collisionAudioIndex.crash_long++;
-				document.getElementById("crash_long" + (that.collisionAudioIndex.crash_long % 10)).play();
+		
+		// 	We need to determine which of the two players gets the damage (the one with the 'best' move)
+		//	Take into account that different planes have different qualities, so we need to take several qualities into account.
+		//	These are:
+		//	* current speed,
+		//	* mass,
+		// 	* upgrades? 
+		if (fixA.GetBody().GetType() == b2Body.b2_staticBody || fixB.GetBody().GetType() == b2Body.b2_staticBody) {
+			//	TODO: Have the laser give the player an impulse, so we both avoid the problem of continuous damage and simplify the implementation
+			return;
+		}
+		else {
+			var damageA = fixA.GetBody().GetLinearVelocity().Length() * fixA.GetBody().GetMass() * 0.001;
+			var damageB = fixB.GetBody().GetLinearVelocity().Length() * fixB.GetBody().GetMass() * 0.001;
+			var damage,
+				playerDoingDamage,
+				playerTakingDamage;
+			if (damageA > damageB) {
+				damage = damageA;
+				playerDoingDamage = fixA;
+				playerTakingDamage = fixB;
+			}  else {
+				damage = damageB;
+				playerDoingDamage = fixB;
+				playerTakingDamage = fixA;
 			}
-			else {
-				that.collisionAudioIndex.crash_short++;
-				document.getElementById("crash_short" + (that.collisionAudioIndex.crash_short % 10)).play();
-			}
-
 			
+			playerTakingDamage.SetDensity(Math.max(playerTakingDamage.GetDensity() - damage, 0.01));
+			playerTakingDamage.GetBody().ResetMassData();
 		}
-		if (fixB.GetBody().GetType() == b2Body.b2_dynamicBody) {
-			fixB.SetDensity(fixB.GetDensity() * 0.8); // 0.95
-			fixB.GetBody().ResetMassData();
+		
+//		if (fixA.GetBody().GetType() == b2Body.b2_dynamicBody) {
+//			if (playerDoingDamage == fixB)
+//				fixA.SetDensity(Math.max(fixB.GetDensity() - damage, 0.01));
+//			
+//			fixA.GetBody().ResetMassData();
 
-			that.collisionAudioIndex.laser++;
-			document.getElementById("laser" + (that.collisionAudioIndex.laser % 10)).play();
-		}
+//			var shortOrLong = Math.floor(Math.random() * 6);
+//			if (shortOrLong == 0) {
+//				that.collisionAudioIndex.crash_long++;
+//				document.getElementById("crash_long" + (that.collisionAudioIndex.crash_long % 10)).play();
+//			}
+//			else {
+//				that.collisionAudioIndex.crash_short++;
+//				document.getElementById("crash_short" + (that.collisionAudioIndex.crash_short % 10)).play();
+//			}
+
+//			
+//		}
+//		if (fixB.GetBody().GetType() == b2Body.b2_dynamicBody) {
+//			if (playerDoingDamage == fixB)
+//				fixA.SetDensity(Math.max(fixB.GetDensity() - damage, 0.01));
+//			
+//			fixB.GetBody().ResetMassData();
+
+//			that.collisionAudioIndex.laser++;
+//			document.getElementById("laser" + (that.collisionAudioIndex.laser % 10)).play();
+//		}
 		
 		
 		
