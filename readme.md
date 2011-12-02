@@ -2,14 +2,17 @@
 
 ## Install on Ubuntu
 
-Optional (since Zappa now works with Node 0.6):
+Optional (since Zappa now also works with Node 0.6):
+
 Install nvm:
 https://github.com/creationix/nvm
+
 ```
 nvm install v0.4.12
 ```
 
 Mandatory:
+
 ```
 curl http://npmjs.org/install.sh | sudo sh
 
