@@ -11,6 +11,7 @@ function Player(engine, id, playername) {
 	this.collisionAudioIndex = 0;
 	this.label = null;
 	this.deadTime = null;
+	this.score = 0;
 	this.ballImgs = [];
 	for (var i = 1; i <= 5; i++) {
 		this.ballImgs[i] = new Image();
@@ -128,7 +129,8 @@ Player.prototype.draw = function(ctx) {
 		this.label = $("<div/>", { id: "p" + this.id, "text": this.playername, "class": "playerLabel" });
 		$(document.body).append(this.label);
 	}
-	this.label.css({ "top": enginePosY + 30, "left": enginePosX + 30 })
+	this.label.css({ "top": m2px(this.x), "left": m2px(this.y) });
+	this.label.text(this.playername + '(' + this.score + ')');
 };
 
 

@@ -23,6 +23,7 @@ function Gamepad() {
     this.engine = $('#engine');
 
     var _instance = this; // Yikes
+    
     document.getElementById('gamepad-container').addEventListener('mousemove', function(e) {
     	_instance.onMove(e);
     }, false);
@@ -52,8 +53,6 @@ function Gamepad() {
 };
 
 Gamepad.prototype.onTouchStart = function(e) {
-    //var bodyelem = $('body');
-    //bodyelem.scrollTop(25);
     e.preventDefault();
 };
 

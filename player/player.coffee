@@ -7,33 +7,29 @@
 		redis_client = @redis_client();
 		redis_client.zscore "bashing::hosts", @params.name, (err, onlineplayers) =>
 			return redis_client.quit() && @redirect("/error/host_not_found/" + @params.name) if onlineplayers == null
-			@render "/player/player.html", 
-				layout: false, 
-				name: @params.name,
+			@render "/player/player.html",
+				layout: false,
+				name: @params.name
 	
 	@get "/mayhem/:name" : ->
 		@render mayhem:
-			layout: false, 
-			name: @params.name 
-
-
+			layout: false,
+			name: @params.name
 
 	@view mayhem: ->
 		@title = "MAYHEM!"
 		script "window.GameHost = { name: '#{@name}' };"
 		script src: "/socket.io/socket.io.js"
 		script src: "/zappa/zappa.js"
-		script src: "/mayhem/js/socket.js"	
-		
+		script src: "/mayhem/js/socket.js"
 	
 	@client "/mayhem/js/socket.js" : ->
-		socket = io.connect("192.168.1.15:8080")
+		socket = io.connect()
 		for i in [0...8]
 			socket.on "connect", (data) ->
 				socket.emit "play", { name: GameHost.name }
 			socket.on "joined", (data) ->
 				id = data.id
-				console.log id
 				setInterval ->
 					x = Math.floor(Math.random() * 300) - 150
 					y = Math.floor(Math.random() * 300) - 150

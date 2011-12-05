@@ -34,13 +34,24 @@ function Physics(intervalRate, adaptive, width, height, scale) {
 		var fixB = contact.GetFixtureB();
 		
 		// 	We need to determine which of the two players gets the damage (the one with the 'best' move)
-		//	Take into account that different planes have different qualities, so we need to take several qualities into account.
-		//	These are:
+		//	Take into account that different planes have different qualities:
 		//	* current speed,
 		//	* mass,
 		// 	* upgrades? 
 		if (fixA.GetBody().GetType() == b2Body.b2_staticBody || fixB.GetBody().GetType() == b2Body.b2_staticBody) {
-			//	TODO: Have the laser give the player an impulse, so we both avoid the problem of continuous damage and simplify the implementation
+			// Impulse back
+			if(fixA.GetBody().GetType() == b2Body.b2_staticBody) {
+				var player = fixB;
+			} else {
+				var player = fixA;
+			}
+			var vector = player.GetBody().GetLinearVelocity().GetNegative();
+			//vector.Multiply(2);
+//			player.GetBody().ApplyImpulse(vector, player.GetBody().GetPosition());
+			
+			// Play sound
+			that.collisionAudioIndex.laser++;
+			document.getElementById("laser" + (that.collisionAudioIndex.laser % 10)).play();
 			return;
 		}
 		else {
@@ -61,55 +72,26 @@ function Physics(intervalRate, adaptive, width, height, scale) {
 			
 			playerTakingDamage.SetDensity(Math.max(playerTakingDamage.GetDensity() - damage, 0.01));
 			playerTakingDamage.GetBody().ResetMassData();
+			
+			// Play sound
+			var shortOrLong = Math.floor(Math.random() * 6);
+			if (shortOrLong == 0) {
+				that.collisionAudioIndex.crash_long++;
+				document.getElementById("crash_long" + (that.collisionAudioIndex.crash_long % 10)).play();
+			}
+			else {
+				that.collisionAudioIndex.crash_short++;
+				document.getElementById("crash_short" + (that.collisionAudioIndex.crash_short % 10)).play();
+			}
 		}
-		
-//		if (fixA.GetBody().GetType() == b2Body.b2_dynamicBody) {
-//			if (playerDoingDamage == fixB)
-//				fixA.SetDensity(Math.max(fixB.GetDensity() - damage, 0.01));
-//			
-//			fixA.GetBody().ResetMassData();
-
-//			var shortOrLong = Math.floor(Math.random() * 6);
-//			if (shortOrLong == 0) {
-//				that.collisionAudioIndex.crash_long++;
-//				document.getElementById("crash_long" + (that.collisionAudioIndex.crash_long % 10)).play();
-//			}
-//			else {
-//				that.collisionAudioIndex.crash_short++;
-//				document.getElementById("crash_short" + (that.collisionAudioIndex.crash_short % 10)).play();
-//			}
-
-//			
-//		}
-//		if (fixB.GetBody().GetType() == b2Body.b2_dynamicBody) {
-//			if (playerDoingDamage == fixB)
-//				fixA.SetDensity(Math.max(fixB.GetDensity() - damage, 0.01));
-//			
-//			fixB.GetBody().ResetMassData();
-
-//			that.collisionAudioIndex.laser++;
-//			document.getElementById("laser" + (that.collisionAudioIndex.laser % 10)).play();
-//		}
-		
-		
-		
-		
-		/*if(fixB.GetBody().GetType() == b2Body.b2_dynamicBody) { // Only dynamic bodies
-			var mass = fixB.GetBody().GetMass();
-			var newMassData = new b2MassData();
-			newMassData.mass = mass * 1.1;
-			newMassData.center = new b2Vec2(0,0);
-			newMassData.I = 0;
-			fixA.GetBody().SetMassData(newMassData);
-		}*/
-		
 	};
 	this.world.SetContactListener(contactListener);
 
 	this.fixDef = new b2FixtureDef;
 	this.fixDef.density = 1.0;
 	this.fixDef.friction = 0.3;
-	this.fixDef.restitution = 0.5;
+	//this.fixDef.restitution = 0.5;
+	this.fixDef.restitution = 1;
 }
 
 Physics.prototype.setBounds = function(width, height) {
@@ -118,7 +100,7 @@ Physics.prototype.setBounds = function(width, height) {
     bodyDef.type = b2Body.b2_staticBody;
     this.fixDef.shape = new b2PolygonShape;
 
-	// Bovensten rand: hele breedte, 4px hoog
+	// Bovenste rand: hele breedte, 4px hoog
     this.fixDef.shape.SetAsBox(px2m(width) / 2, px2m(2));
     bodyDef.position.Set(px2m(width) / 2, px2m(2));
     this.world.CreateBody(bodyDef).CreateFixture(this.fixDef);
